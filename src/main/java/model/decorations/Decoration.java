@@ -3,9 +3,10 @@ package model.decorations;
 import model.escape_room.Thematic;
 
 public abstract class Decoration {
-    private int id;
-    private String material;
-    private float value;
+    protected int id;
+    protected Thematic thematic;
+    protected String material;
+    protected float value;
     
     public Decoration(int id, String material, float value) {
         this.id = id;
@@ -13,7 +14,13 @@ public abstract class Decoration {
         this.value=value;
     }
     
-    public abstract Thematic getThematic();
+    public Thematic getThematic() {
+        return thematic;
+    }
+    
+    public void setThematic(Thematic thematic) {
+        this.thematic = thematic;
+    }
     
     public int getId() {
         return id;

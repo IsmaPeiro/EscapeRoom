@@ -8,13 +8,8 @@ import java.util.List;
 
 public class MedievalRoom extends Room {
     public MedievalRoom(int id, String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
-        
         super(id, name, difficulty, clues, decorations);
-    }
-    
-    @Override
-    public Thematic getTemathic() {
-        return Thematic.MEDIEVAL;
+        thematic=Thematic.MEDIEVAL;
     }
     
     @Override

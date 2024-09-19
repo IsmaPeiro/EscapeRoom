@@ -5,11 +5,7 @@ import model.escape_room.Thematic;
 public class MedievalDecoration extends Decoration {
     public MedievalDecoration(int id, String material, float value) {
         super(id, material, value);
-    }
-    
-    @Override
-    public Thematic getThematic() {
-        return Thematic.MEDIEVAL;
+        thematic=Thematic.MEDIEVAL;
     }
     
     @Override

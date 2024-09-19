@@ -5,11 +5,7 @@ import model.escape_room.Thematic;
 public class SciFiClue extends Clue {
     public SciFiClue(int id, float value) {
         super(id, value);
-    }
-    
-    @Override
-    public Thematic getThematic() {
-        return Thematic.SCIFI;
+        thematic=Thematic.SCIFI;
     }
     
     @Override

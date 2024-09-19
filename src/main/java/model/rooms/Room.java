@@ -7,11 +7,12 @@ import model.escape_room.Thematic;
 import java.util.List;
 
 public abstract class Room {
-    private int id;
-    private String name;
-    private Difficulty difficulty;
-    private List<Clue> clues;
-    private List<Decoration> decorations;
+    protected int id;
+    protected Thematic thematic;
+    protected String name;
+    protected Difficulty difficulty;
+    protected List<Clue> clues;
+    protected List<Decoration> decorations;
     
     public Room(int id, String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
         this.id = id;
@@ -21,7 +22,13 @@ public abstract class Room {
         this.decorations = decorations;
     }
     
-    public abstract Thematic getTemathic();
+    public Thematic getThematic() {
+        return thematic;
+    }
+    
+    public void setThematic(Thematic thematic) {
+        this.thematic = thematic;
+    }
     
     public int getId() {
         return id;

@@ -3,15 +3,22 @@ package model.clues;
 import model.escape_room.Thematic;
 
 public abstract class Clue {
-    private int id;
-    private float value;
+    protected int id;
+    protected Thematic thematic;
+    protected float value;
     
     public Clue(int id, float value) {
         this.id = id;
         this.value = value;
     }
     
-    public abstract Thematic getThematic();
+    public Thematic getThematic() {
+        return thematic;
+    }
+    
+    public void setThematic(Thematic thematic) {
+        this.thematic = thematic;
+    }
     
     public int getId() {
         return id;
