@@ -15,8 +15,8 @@ import java.util.List;
 
 public class SciFiRoomFactory implements RoomAbstractFactory {
     @Override
-    public Room createRoom(int id, String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
-        return new SciFiRoom(id, name, difficulty, clues, decorations);
+    public Room createRoom(String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
+        return new SciFiRoom(name, difficulty, clues, decorations);
     }
     
     @Override

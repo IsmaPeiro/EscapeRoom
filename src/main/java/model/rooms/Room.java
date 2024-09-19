@@ -14,8 +14,7 @@ public abstract class Room {
     protected List<Clue> clues;
     protected List<Decoration> decorations;
     
-    public Room(int id, String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
-        this.id = id;
+    public Room(String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
         this.name = name;
         this.difficulty = difficulty;
         this.clues = clues;

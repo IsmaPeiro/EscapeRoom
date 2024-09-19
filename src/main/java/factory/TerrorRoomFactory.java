@@ -15,8 +15,8 @@ import java.util.List;
 
 public class TerrorRoomFactory implements RoomAbstractFactory {
     @Override
-    public Room createRoom(int id, String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
-        return new TerrorRoom(id, name, difficulty, clues, decorations);
+    public Room createRoom(String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
+        return new TerrorRoom(name, difficulty, clues, decorations);
     }
     
     @Override

@@ -7,8 +7,8 @@ import model.escape_room.Thematic;
 import java.util.List;
 
 public class FantasticRoom extends Room {
-    public FantasticRoom(int id, String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
-        super(id, name, difficulty, clues, decorations);
+    public FantasticRoom(String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
+        super(name, difficulty, clues, decorations);
         thematic=Thematic.FANTASTIC;
     }
     

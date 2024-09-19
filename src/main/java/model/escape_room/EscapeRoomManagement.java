@@ -1,9 +1,12 @@
 package model.escape_room;
 
+import dao.DAOException;
+
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class EscapeRoomManagement {
-    public void init() {
+    public void init() throws DAOException, SQLException {
         
         EscapeRoom escape = new EscapeRoom();
         
@@ -46,11 +49,11 @@ public class EscapeRoomManagement {
         return option;
     }
     
-    public void addRoom (EscapeRoom escape) {
+    public void addRoom (EscapeRoom escape) throws DAOException, SQLException {
         escape.addRoom(RoomUtils.addRoom());
     }
     
-    public void listRooms(EscapeRoom escape) {
+    public void listRooms(EscapeRoom escape) throws SQLException {
         escape.showAllRooms();
     }
     

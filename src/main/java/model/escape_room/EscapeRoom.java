@@ -1,7 +1,14 @@
 package model.escape_room;
 
+import dao.DAOException;
+import dao.RoomDAO;
+import dao.mysql.MySQLRoomDAO;
 import model.rooms.Room;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,12 +16,42 @@ import java.util.Scanner;
 public class EscapeRoom {
     private List<Room> rooms=new ArrayList<>();
     
-    public void addRoom (Room room) {
-        rooms.add(room);
+    public void addRoom (Room room) throws SQLException, DAOException {
+        //rooms.add(room);
+        
+        Connection conn = null;
+        String jdbc = "jdbc:mysql://localhost:3306/mydb";
+        
+        
+        try {
+            conn = DriverManager.getConnection(jdbc, "root", "Obokaman1976.");
+            RoomDAO dao = new MySQLRoomDAO(conn);
+            dao.create(room);
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
     }
     
-    public void showAllRooms () {
-        rooms.forEach(System.out::println);
+    public void showAllRooms () throws SQLException {
+       // rooms.forEach(System.out::println);
+        Connection conn = null;
+        String jdbc = "jdbc:mysql://localhost:3306/mydb";
+        
+        
+        try {
+            conn = DriverManager.getConnection(jdbc, "root", "Obokaman1976.");
+            RoomDAO dao = new MySQLRoomDAO(conn);
+            List<Room> rooms = dao.readAll();
+            rooms.forEach(System.out::println);
+        } catch (DAOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
     }
     
     public void addClueToRoom () {

@@ -7,8 +7,8 @@ import model.escape_room.Thematic;
 import java.util.List;
 
 public class MedievalRoom extends Room {
-    public MedievalRoom(int id, String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
-        super(id, name, difficulty, clues, decorations);
+    public MedievalRoom(String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
+        super(name, difficulty, clues, decorations);
         thematic=Thematic.MEDIEVAL;
     }
     

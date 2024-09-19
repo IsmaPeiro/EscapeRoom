@@ -7,6 +7,7 @@ public abstract class Decoration {
     protected Thematic thematic;
     protected String material;
     protected float value;
+    protected Integer idRoom;
     
     public Decoration(int id, String material, float value) {
         this.id = id;
@@ -44,6 +45,14 @@ public abstract class Decoration {
     
     public void setValue(float value) {
         this.value = value;
+    }
+    
+    public Integer getIdRoom() {
+        return idRoom;
+    }
+    
+    public void setIdRoom(Integer idRoom) {
+        this.idRoom = idRoom;
     }
     
     @Override

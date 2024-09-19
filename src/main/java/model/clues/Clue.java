@@ -6,6 +6,7 @@ public abstract class Clue {
     protected int id;
     protected Thematic thematic;
     protected float value;
+    protected Integer idRoom;
     
     public Clue(int id, float value) {
         this.id = id;
@@ -34,6 +35,14 @@ public abstract class Clue {
     
     public void setValue(float value) {
         this.value = value;
+    }
+    
+    public Integer getIdRoom() {
+        return idRoom;
+    }
+    
+    public void setIdRoom(Integer idRoom) {
+        this.idRoom = idRoom;
     }
     
     @Override

@@ -12,8 +12,8 @@ import java.util.List;
 
 public class FantasticRoomFactory implements RoomAbstractFactory {
     @Override
-    public Room createRoom(int id, String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
-        return new FantasticRoom(id, name, difficulty, clues, decorations);
+    public Room createRoom(String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
+        return new FantasticRoom(name, difficulty, clues, decorations);
     }
     
     @Override

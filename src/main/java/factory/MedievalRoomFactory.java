@@ -15,8 +15,8 @@ import java.util.List;
 
 public class MedievalRoomFactory implements RoomAbstractFactory {
     @Override
-    public Room createRoom(int id, String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
-        return new MedievalRoom(id, name, difficulty, clues, decorations);
+    public Room createRoom(String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
+        return new MedievalRoom(name, difficulty, clues, decorations);
     }
     
     @Override

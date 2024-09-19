@@ -23,15 +23,12 @@ public class RoomUtils {
         
         System.out.println("What thematic have the Room?");
         RoomAbstractFactory factory = choseThematic();
-        System.out.println("Id:");
-        id=sc.nextInt();
-        sc.nextLine();
         System.out.println("Name:");
         name = sc.nextLine();
         System.out.println("Difficulty:");
         difficulty=choseDifficulty();
         
-        return factory.createRoom(id, name, difficulty, clues, decorations);
+        return factory.createRoom(name, difficulty, clues, decorations);
     }
     
     private static Difficulty choseDifficulty() {
