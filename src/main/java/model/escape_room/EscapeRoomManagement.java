@@ -46,12 +46,12 @@ public class EscapeRoomManagement {
         return option;
     }
     
-    public void addRoom (EscapeRoom scape) {
-        scape.addRoom(RoomUtils.addRoom());
+    public void addRoom (EscapeRoom escape) {
+        escape.addRoom(RoomUtils.addRoom());
     }
     
-    public void listRooms(EscapeRoom scape) {
-        scape.showAllRooms();
+    public void listRooms(EscapeRoom escape) {
+        escape.showAllRooms();
     }
     
     private void addClue(EscapeRoom escape) {
