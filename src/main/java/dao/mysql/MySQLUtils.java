@@ -1,6 +1,8 @@
 package dao.mysql;
 
 import dao.DAOException;
+import factory.*;
+import model.escape_room.Thematic;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,5 +27,25 @@ public class MySQLUtils {
                 throw new DAOException("Error en SQL", e);
             }
         }
+    }
+    
+    public static RoomAbstractFactory selectFactroy(Thematic thematic) {
+        switch (thematic) {
+            case FANTASTIC -> {
+                return new FantasticRoomFactory();
+            }
+            case MEDIEVAL -> {
+                return new MedievalRoomFactory();
+            }
+            
+            case SCIFI -> {
+                return new SciFiRoomFactory();
+            }
+            
+            case TERROR -> {
+                return new TerrorRoomFactory();
+            }
+        }
+        return null;
     }
 }

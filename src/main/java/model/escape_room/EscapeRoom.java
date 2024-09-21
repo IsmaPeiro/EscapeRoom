@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class EscapeRoom {
-    private List<Room> rooms=new ArrayList<>();
+    private List<Room> rooms = new ArrayList<>();
     
-    public void addRoom (Room room) throws SQLException, DAOException {
+    public void addRoom(Room room) {
         //rooms.add(room);
         
         Connection conn = null;
@@ -27,15 +27,22 @@ public class EscapeRoom {
             conn = DriverManager.getConnection(jdbc, "root", "Obokaman1976.");
             RoomDAO dao = new MySQLRoomDAO(conn);
             dao.create(room);
+        } catch (DAOException|SQLException e) {
+            System.out.println(e);
+            
         } finally {
             if (conn != null) {
-                conn.close();
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    System.out.println(e);
+                }
             }
         }
     }
     
-    public void showAllRooms () throws SQLException {
-       // rooms.forEach(System.out::println);
+    public void showAllRooms() {
+        // rooms.forEach(System.out::println);
         Connection conn = null;
         String jdbc = "jdbc:mysql://localhost:3306/mydb";
         
@@ -45,32 +52,37 @@ public class EscapeRoom {
             RoomDAO dao = new MySQLRoomDAO(conn);
             List<Room> rooms = dao.readAll();
             rooms.forEach(System.out::println);
-        } catch (DAOException e) {
-            throw new RuntimeException(e);
-        } finally {
+        } catch (DAOException|SQLException e) {
+            System.out.println(e);
+                    } finally {
             if (conn != null) {
-                conn.close();
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    System.out.println(e);
+                }
             }
         }
     }
     
-    public void addClueToRoom () {
-        Room room=searchRoom();
-        ClueUtils.addClue (room);
+    public void addClueToRoom() {
+        Room room = searchRoom();
+        ClueUtils.addClue(room);
     }
     
-    public void addDecorationToRoom () {
-        Room room=searchRoom();
-        DecorationUtils.addDecoration (room);
+    public void addDecorationToRoom() {
+        Room room = searchRoom();
+        DecorationUtils.addDecoration(room);
     }
     
-    private Room searchRoom () {
-        int id; Room room=null;
-        boolean found=false;
-        int i=0;
-        Scanner sc=new Scanner(System.in);
+    private Room searchRoom() {
+        int id;
+        Room room = null;
+        boolean found = false;
+        int i = 0;
+        Scanner sc = new Scanner(System.in);
         System.out.println("Id:");
-        id=sc.nextInt();
+        id = sc.nextInt();
         room = rooms.stream().filter(r -> r.getId() == id).findFirst().orElse(null);
         return room;
     }

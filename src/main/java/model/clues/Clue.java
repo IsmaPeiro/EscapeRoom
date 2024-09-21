@@ -8,8 +8,7 @@ public abstract class Clue {
     protected float value;
     protected Integer idRoom;
     
-    public Clue(int id, float value) {
-        this.id = id;
+    public Clue(float value) {
         this.value = value;
     }
     

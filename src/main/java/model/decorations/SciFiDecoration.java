@@ -3,8 +3,8 @@ package model.decorations;
 import model.escape_room.Thematic;
 
 public class SciFiDecoration extends Decoration {
-    public SciFiDecoration(int id, String material, float value) {
-        super(id, material, value);
+    public SciFiDecoration(String material, float value) {
+        super(material, value);
         thematic=Thematic.SCIFI;
     }
     

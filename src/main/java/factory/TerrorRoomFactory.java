@@ -20,12 +20,12 @@ public class TerrorRoomFactory implements RoomAbstractFactory {
     }
     
     @Override
-    public Clue createClue(int id, float value) {
-        return new TerrorClue(id, value);
+    public Clue createClue(float value) {
+        return new TerrorClue(value);
     }
     
     @Override
-    public Decoration createDecoration(int id, String material, float value) {
-        return new TerrorDecoration(id, material, value);
+    public Decoration createDecoration(String material, float value) {
+        return new TerrorDecoration(material, value);
     }
 }

@@ -20,12 +20,12 @@ public class SciFiRoomFactory implements RoomAbstractFactory {
     }
     
     @Override
-    public Clue createClue(int id, float value) {
-        return new SciFiClue(id, value);
+    public Clue createClue(float value) {
+        return new SciFiClue(value);
     }
     
     @Override
-    public Decoration createDecoration(int id, String material, float value) {
-        return new SciFiDecoration(id, material, value);
+    public Decoration createDecoration(String material, float value) {
+        return new SciFiDecoration(material, value);
     }
 }

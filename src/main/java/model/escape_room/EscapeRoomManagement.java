@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class EscapeRoomManagement {
-    public void init() throws DAOException, SQLException {
+    public void init() {
         
         EscapeRoom escape = new EscapeRoom();
         
@@ -49,11 +49,11 @@ public class EscapeRoomManagement {
         return option;
     }
     
-    public void addRoom (EscapeRoom escape) throws DAOException, SQLException {
+    public void addRoom (EscapeRoom escape)  {
         escape.addRoom(RoomUtils.addRoom());
     }
     
-    public void listRooms(EscapeRoom escape) throws SQLException {
+    public void listRooms(EscapeRoom escape)  {
         escape.showAllRooms();
     }
     

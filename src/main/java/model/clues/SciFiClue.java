@@ -3,8 +3,8 @@ package model.clues;
 import model.escape_room.Thematic;
 
 public class SciFiClue extends Clue {
-    public SciFiClue(int id, float value) {
-        super(id, value);
+    public SciFiClue(float value) {
+        super(value);
         thematic=Thematic.SCIFI;
     }
     

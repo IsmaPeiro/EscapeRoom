@@ -3,6 +3,8 @@ package dao.mysql;
 import dao.DAOException;
 import dao.RoomDAO;
 import factory.*;
+import model.clues.Clue;
+import model.decorations.Decoration;
 import model.escape_room.Thematic;
 import model.rooms.Difficulty;
 import model.rooms.Room;
@@ -39,50 +41,37 @@ public class MySQLRoomDAO implements RoomDAO {
             stat.setString(2, room.getName());
             stat.setString(3, room.getDifficulty().toString());
             if (stat.executeUpdate() == 0) {
-                throw new DAOException("Puede que no se haya guardado");
+                throw new DAOException("It may not have been saved");
             }
             rs = stat.getGeneratedKeys();
             if (rs.next()) {
                 room.setId(rs.getInt(1));
             } else {
-                throw new DAOException("No se puede asignar esta ID a este alumno.");
+                throw new DAOException("This ID cannot be assigned to this room.");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en SQL", e);
+            throw new DAOException("SQL Error", e);
         } finally {
             MySQLUtils.close(stat);
             MySQLUtils.close(rs);
         }
     }
     
-    private Room convert(ResultSet rs) throws SQLException {
+    private Room convert(ResultSet rs) throws SQLException, DAOException {
         Thematic thematic = Thematic.valueOf(rs.getString("thematic"));
         String name = rs.getString("name");
         Difficulty difficulty = Difficulty.valueOf(rs.getString("difficulty"));
-        RoomAbstractFactory raf = selectFactroy(thematic);
-        Room room = raf.createRoom(name, difficulty, null, null);
+        
+        MySQLClueDAO mySQLClueDAO=new MySQLClueDAO(conn);
+        List<Clue> clues=mySQLClueDAO.readAllIdRoom(rs.getInt("idrooms"));
+        
+        MySQLDecorationDAO mySQLDecorationDAO=new MySQLDecorationDAO(conn);
+        List<Decoration> decorations=mySQLDecorationDAO.readAllIdRoom(rs.getInt("idrooms"));
+        
+        RoomAbstractFactory raf = MySQLUtils.selectFactroy(thematic);
+        Room room = raf.createRoom(name, difficulty, clues, decorations);
         room.setId(rs.getInt("idrooms"));
         return room;
-    }
-    
-    private RoomAbstractFactory selectFactroy(Thematic thematic) {
-        switch (thematic) {
-            case FANTASTIC -> {
-                return new FantasticRoomFactory();
-            }
-            case MEDIEVAL -> {
-                return new MedievalRoomFactory();
-            }
-            
-            case SCIFI -> {
-                return new SciFiRoomFactory();
-            }
-            
-            case TERROR -> {
-                return new TerrorRoomFactory();
-            }
-        }
-        return null;
     }
     
     @Override
@@ -97,10 +86,10 @@ public class MySQLRoomDAO implements RoomDAO {
             if (rs.next()) {
                 room = convert(rs);
             } else {
-                throw new DAOException("No se ha encontrado ese registro.");
+                throw new DAOException("Record not found.");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en SQL", e);
+            throw new DAOException("SQL Error", e);
         } finally {
             MySQLUtils.close(stat);
             MySQLUtils.close(rs);
@@ -121,7 +110,7 @@ public class MySQLRoomDAO implements RoomDAO {
                 rooms.add(convert(rs));
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en SQL", e);
+            throw new DAOException("SQL Error", e);
         } finally {
             MySQLUtils.close(stat);
             MySQLUtils.close(rs);
@@ -141,10 +130,10 @@ public class MySQLRoomDAO implements RoomDAO {
             stat.setString(3, room.getDifficulty().toString());
             stat.setInt(4, room.getId());
             if (stat.executeUpdate() == 0) {
-                throw new DAOException("Puede que no se haya modificado");
+                throw new DAOException("It may not have been modified");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en SQL", e);
+            throw new DAOException("SQL Error", e);
         } finally {
             MySQLUtils.close(stat);
         }
@@ -158,10 +147,10 @@ public class MySQLRoomDAO implements RoomDAO {
             stat = conn.prepareStatement(DELETE);
             stat.setInt(1, a.getId());
             if (stat.executeUpdate() == 0) {
-                throw new DAOException("Puede que no se haya modificado");
+                throw new DAOException("It may not have been deleted");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en SQL", e);
+            throw new DAOException("SQL Error", e);
         } finally {
             MySQLUtils.close(stat);
         }

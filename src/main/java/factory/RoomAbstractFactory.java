@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface RoomAbstractFactory {
     Room createRoom (String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations);
-    Clue createClue (int id, float value);
-    Decoration createDecoration (int id, String material, float value);
+    Clue createClue (float value);
+    Decoration createDecoration (String material, float value);
 }

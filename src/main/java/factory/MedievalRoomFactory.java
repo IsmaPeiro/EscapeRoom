@@ -20,12 +20,12 @@ public class MedievalRoomFactory implements RoomAbstractFactory {
     }
     
     @Override
-    public Clue createClue(int id, float value) {
-        return new MedievalClue(id, value);
+    public Clue createClue(float value) {
+        return new MedievalClue(value);
     }
     
     @Override
-    public Decoration createDecoration(int id, String material, float value) {
-        return new MedievalDecoration(id, material, value);
+    public Decoration createDecoration(String material, float value) {
+        return new MedievalDecoration(material, value);
     }
 }

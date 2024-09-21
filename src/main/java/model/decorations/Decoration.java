@@ -9,8 +9,7 @@ public abstract class Decoration {
     protected float value;
     protected Integer idRoom;
     
-    public Decoration(int id, String material, float value) {
-        this.id = id;
+    public Decoration(String material, float value) {
         this.material = material;
         this.value=value;
     }

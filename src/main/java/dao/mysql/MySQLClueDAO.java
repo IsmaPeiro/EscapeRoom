@@ -20,6 +20,7 @@ public class MySQLClueDAO implements ClueDAO {
     final String GETALL = "SELECT * FROM clues";
     final String GETONE = "SELECT idclues, thematic, value, idroom FROM clues " +
             "WHERE idclues = ?";
+    final String GETBYIDROOM = "SELECT * FROM clues WHERE idroom = ?";
     
     private Connection conn;
     
@@ -38,16 +39,16 @@ public class MySQLClueDAO implements ClueDAO {
             stat.setFloat(2, clue.getValue());
             stat.setInt(3, clue.getIdRoom());
             if (stat.executeUpdate() == 0) {
-                throw new DAOException("Puede que no se haya guardado");
+                throw new DAOException("It may not have been saved");
             }
             rs = stat.getGeneratedKeys();
             if (rs.next()) {
                 clue.setId(rs.getInt(1));
             } else {
-                throw new DAOException("No se puede asignar esta ID a este alumno.");
+                throw new DAOException("This ID cannot be assigned to this clue.");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en SQL", e);
+            throw new DAOException("SQL Error", e);
         } finally {
             MySQLUtils.close(stat);
             MySQLUtils.close(rs);
@@ -55,37 +56,17 @@ public class MySQLClueDAO implements ClueDAO {
     }
     
     private Clue convert(ResultSet rs) throws SQLException {
-        int id = rs.getInt("idclues");
         Thematic thematic = Thematic.valueOf(rs.getString("thematic"));
         int value = rs.getInt("value");
         Integer idRoom = rs.getInt("idroom");
         if (rs.wasNull()) {
             idRoom = null;
         }
-        RoomAbstractFactory raf = selectFactroy(thematic);
-        Clue clue = raf.createClue(id, value);
+        RoomAbstractFactory raf = MySQLUtils.selectFactroy(thematic);
+        Clue clue = raf.createClue(value);
         clue.setIdRoom(idRoom);
+        clue.setId(rs.getInt("idclues"));
         return clue;
-    }
-    
-    private RoomAbstractFactory selectFactroy(Thematic thematic) {
-        switch (thematic) {
-            case FANTASTIC -> {
-                return new FantasticRoomFactory();
-            }
-            case MEDIEVAL -> {
-                return new MedievalRoomFactory();
-            }
-            
-            case SCIFI -> {
-                return new SciFiRoomFactory();
-            }
-            
-            case TERROR -> {
-                return new TerrorRoomFactory();
-            }
-        }
-        return null;
     }
     
     @Override
@@ -100,10 +81,10 @@ public class MySQLClueDAO implements ClueDAO {
             if (rs.next()) {
                 clue = convert(rs);
             } else {
-                throw new DAOException("No se ha encontrado ese registro.");
+                throw new DAOException("Record not found.");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en SQL", e);
+            throw new DAOException("SQL Error", e);
         } finally {
             MySQLUtils.close(stat);
             MySQLUtils.close(rs);
@@ -124,7 +105,28 @@ public class MySQLClueDAO implements ClueDAO {
                 clues.add(convert(rs));
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en SQL", e);
+            throw new DAOException("SQL Error", e);
+        } finally {
+            MySQLUtils.close(stat);
+            MySQLUtils.close(rs);
+        }
+        return clues;
+    }
+    
+    @Override
+    public List<Clue> readAllIdRoom(Integer idRoom) throws DAOException {
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+        List<Clue> clues = new ArrayList<>();
+        try {
+            stat = conn.prepareStatement(GETBYIDROOM);
+            stat.setInt(1, idRoom);
+            rs = stat.executeQuery();
+            while (rs.next()) {
+                clues.add(convert(rs));
+            }
+        } catch (SQLException e) {
+            throw new DAOException("SQL Error", e);
         } finally {
             MySQLUtils.close(stat);
             MySQLUtils.close(rs);
@@ -144,10 +146,10 @@ public class MySQLClueDAO implements ClueDAO {
             stat.setInt(3, clue.getIdRoom());
             stat.setInt(4, clue.getId());
             if (stat.executeUpdate() == 0) {
-                throw new DAOException("Puede que no se haya modificado");
+                throw new DAOException("It may not have been modified");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en SQL", e);
+            throw new DAOException("SQL Error", e);
         } finally {
             MySQLUtils.close(stat);
         }
@@ -161,13 +163,15 @@ public class MySQLClueDAO implements ClueDAO {
             stat = conn.prepareStatement(DELETE);
             stat.setInt(1, clue.getId());
             if (stat.executeUpdate() == 0) {
-                throw new DAOException("Puede que no se haya modificado");
+                throw new DAOException("It may not have been deleted");
             }
         } catch (SQLException e) {
-            throw new DAOException("Error en SQL", e);
+            throw new DAOException("SQL Error", e);
         } finally {
             MySQLUtils.close(stat);
         }
     }
+    
+    
 }
 

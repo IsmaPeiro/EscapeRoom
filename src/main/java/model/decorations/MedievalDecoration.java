@@ -3,8 +3,8 @@ package model.decorations;
 import model.escape_room.Thematic;
 
 public class MedievalDecoration extends Decoration {
-    public MedievalDecoration(int id, String material, float value) {
-        super(id, material, value);
+    public MedievalDecoration(String material, float value) {
+        super(material, value);
         thematic=Thematic.MEDIEVAL;
     }
     

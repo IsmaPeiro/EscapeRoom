@@ -17,12 +17,12 @@ public class FantasticRoomFactory implements RoomAbstractFactory {
     }
     
     @Override
-    public Clue createClue(int id, float value) {
-        return new FantasticClue(id, value);
+    public Clue createClue(float value) {
+        return new FantasticClue(value);
     }
     
     @Override
-    public Decoration createDecoration(int id, String material, float value) {
-        return new FantasticDecoration(id, material, value);
+    public Decoration createDecoration(String material, float value) {
+        return new FantasticDecoration(material, value);
     }
 }
