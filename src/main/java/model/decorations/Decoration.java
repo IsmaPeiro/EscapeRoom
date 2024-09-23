@@ -4,19 +4,19 @@ import model.escape_room.Thematic;
 
 public abstract class Decoration {
     protected int id;
+    protected String name;
     protected Thematic thematic;
     protected String material;
     protected float value;
     
-    public Decoration(int id, String material, float value) {
+    public Decoration(String name,  String material, float value) {
         this.id = id;
+        this.name = name;
         this.material = material;
         this.value=value;
     }
     
-    public Thematic getThematic() {
-        return thematic;
-    }
+    public Thematic getThematic() {return thematic;}
     
     public void setThematic(Thematic thematic) {
         this.thematic = thematic;

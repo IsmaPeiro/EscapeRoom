@@ -70,9 +70,13 @@ public abstract class Room {
         this.decorations = decorations;
     }
     
-    public void addClue (Clue clue) {
+    public void addClueList (Clue clue) {
         clues.add(clue);
     }
+
+    public void addDecorationList (Decoration decoration){ decorations.add(decoration);}
+
+    public abstract Decoration createDecoration();
     
     @Override
     public String toString() {

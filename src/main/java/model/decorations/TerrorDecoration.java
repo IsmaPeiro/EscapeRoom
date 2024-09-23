@@ -3,8 +3,9 @@ package model.decorations;
 import model.escape_room.Thematic;
 
 public class TerrorDecoration extends Decoration {
-    public TerrorDecoration(int id, String material, float value) {
-        super(id, material, value);
+    public TerrorDecoration(String name, String material, float value) {
+        super(name, material, value);
+        this.id = id;
         thematic=Thematic.TERROR;
     }
     
