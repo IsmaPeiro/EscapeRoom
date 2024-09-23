@@ -2,6 +2,8 @@ package model.rooms;
 
 import model.clues.Clue;
 import model.decorations.Decoration;
+import model.decorations.FantasticDecoration;
+import model.escape_room.DecorationUtils;
 import model.escape_room.Thematic;
 
 import java.util.List;
@@ -14,18 +16,20 @@ public class FantasticRoom extends Room {
     }
 
     @Override
-    public Decoration createDecoration(){
-
-
+    public void createDecoration(){
+    String name = DecorationUtils.getNameDecoration();
+    String material = DecorationUtils.getMaterialDecoration();
+    float value = DecorationUtils.getValueDecoration();
+        FantasticDecoration fantasticDecoration = new FantasticDecoration(name, material, value);
+        addDecorationToList(fantasticDecoration);
     }
 
-    public String getName(){
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Write the name of the decoration yoo want to add:");
-        String name = sc.nextLine();
-        return name;
+    @Override
+    public void addDecorationToList(Decoration decoration){
+        decorations.add(decoration);
     }
+
+
 
 
     

@@ -74,9 +74,9 @@ public abstract class Room {
         clues.add(clue);
     }
 
-    public void addDecorationList (Decoration decoration){ decorations.add(decoration);}
+    public  void addDecorationToList(Decoration decoration){ decorations.add(decoration);}
 
-    public abstract Decoration createDecoration();
+    public abstract void createDecoration();
     
     @Override
     public String toString() {
