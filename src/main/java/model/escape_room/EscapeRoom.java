@@ -26,6 +26,11 @@ public class EscapeRoom {
         Room room=searchRoom();
         DecorationUtils.addDecoration (room);
     }
+
+    public void removeDecorationFromRoom(){
+        Room room=searchRoom();
+        DecorationUtils.removeDecoration(room);
+    }
     
     private Room searchRoom () {
         int id; Room room=null;

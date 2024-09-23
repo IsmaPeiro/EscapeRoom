@@ -74,9 +74,15 @@ public abstract class Room {
         clues.add(clue);
     }
 
-    public  void addDecorationToList(Decoration decoration){ decorations.add(decoration);}
+    public abstract void addDecorationToList(Decoration decoration);
 
     public abstract void createDecoration();
+
+    public Decoration findDecoration(int id){
+        return decorations.stream().filter(d -> d.getId() == id).findFirst().orElse(null);
+    }
+
+    public void removeDecorationFromList(Decoration decoration){ decorations.remove(decoration); }
     
     @Override
     public String toString() {

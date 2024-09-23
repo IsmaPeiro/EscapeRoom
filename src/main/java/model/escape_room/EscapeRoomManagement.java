@@ -61,4 +61,6 @@ public class EscapeRoomManagement {
     private void addDecoration(EscapeRoom escape) {
         escape.addDecorationToRoom();
     }
+
+    private void removeDecoration(EscapeRoom escape){ escape.removeDecorationFromRoom();}
 }
