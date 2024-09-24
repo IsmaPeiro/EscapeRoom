@@ -3,10 +3,13 @@ package model.escape_room;
 import dao.ClientDAO;
 import dao.DAOException;
 import dao.RoomDAO;
+import dao.TicketDAO;
 import dao.mysql.MySQLClientDAO;
 import dao.mysql.MySQLRoomDAO;
+import dao.mysql.MySQLTcketDAO;
 import dao.mysql.MySQLUtils;
 import model.clients.Client;
+import model.clients.Ticket;
 import model.rooms.Room;
 
 import java.sql.Connection;
@@ -14,6 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class EscapeRoom {
     private List<Room> rooms = new ArrayList<>();
@@ -79,6 +83,23 @@ public class EscapeRoom {
             ClientDAO dao = new MySQLClientDAO(conn);
             List<Client> clients = dao.readAll();
             clients.forEach(System.out::println);
+        } catch (DAOException | SQLException e) {
+            System.out.println(e);
+        } finally {
+            MySQLUtils.closeConn(conn);
+        }
+    }
+    
+    public void listTickets() {
+        Connection conn = null;
+        try {
+            conn = MySQLUtils.getConn();
+            TicketDAO dao = new MySQLTcketDAO(conn);
+            List<Ticket> tickets = dao.readAll();
+            tickets.forEach(System.out::println);
+            
+            System.out.println("Total value of tickets: "+
+                    tickets.stream().mapToDouble(Ticket::getValue).sum());
         } catch (DAOException | SQLException e) {
             System.out.println(e);
         } finally {

@@ -16,6 +16,7 @@ public class EscapeRoomManagement {
                 case 3 -> addClue(escape);
                 case 4 -> addDecoration(escape);
                 case 5 -> listClients(escape);
+                case 6 -> listTickets(escape);
                 case 0 -> {
                     System.out.println("thanks.");
                     exit = true;
@@ -28,7 +29,7 @@ public class EscapeRoomManagement {
         Scanner sc = new Scanner(System.in);
         byte option = -1;
         final byte MINIMUM = 0;
-        final byte MAXIMUM = 5;
+        final byte MAXIMUM = 6;
         
         do {
             System.out.println("\nMENú PRINCIPAL");
@@ -37,6 +38,7 @@ public class EscapeRoomManagement {
             System.out.println("3. Add Clue to Room.");
             System.out.println("4. Add Decoration to Room.");
             System.out.println("5. List Clients.");
+            System.out.println("6. List Tickets.");
             System.out.println("0. Exit.\n");
             if (sc.hasNextByte()) option = sc.nextByte();
             sc.nextLine();
@@ -65,5 +67,9 @@ public class EscapeRoomManagement {
     
     private void listClients(EscapeRoom escape) {
         escape.listClients();
+    }
+    
+    private void listTickets(EscapeRoom escape) {
+        escape.listTickets();
     }
 }
