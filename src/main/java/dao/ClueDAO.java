@@ -1,6 +1,5 @@
 package dao;
 
-import model.clients.Client;
 import model.clues.Clue;
 
 import java.util.List;

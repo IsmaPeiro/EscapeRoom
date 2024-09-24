@@ -1,10 +1,8 @@
 package dao.mysql;
 
 import dao.DAOException;
-import dao.RoomDAO;
 import factory.*;
 import model.escape_room.Thematic;
-import model.rooms.Room;
 
 import java.sql.*;
 

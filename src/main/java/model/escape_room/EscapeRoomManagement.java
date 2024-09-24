@@ -1,8 +1,5 @@
 package model.escape_room;
 
-import dao.DAOException;
-
-import java.sql.SQLException;
 import java.util.Scanner;
 
 public class EscapeRoomManagement {

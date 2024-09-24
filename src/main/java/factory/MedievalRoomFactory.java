@@ -1,13 +1,10 @@
 package factory;
 
 import model.clues.Clue;
-import model.clues.FantasticClue;
 import model.clues.MedievalClue;
 import model.decorations.Decoration;
-import model.decorations.FantasticDecoration;
 import model.decorations.MedievalDecoration;
 import model.rooms.Difficulty;
-import model.rooms.FantasticRoom;
 import model.rooms.MedievalRoom;
 import model.rooms.Room;
 

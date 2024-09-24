@@ -3,7 +3,6 @@ package dao.mysql;
 import dao.DAOException;
 import dao.DecorationDAO;
 import factory.*;
-import model.clues.Clue;
 import model.decorations.Decoration;
 import model.escape_room.Thematic;
 
