@@ -3,11 +3,10 @@ package model.escape_room;
 import dao.DAOException;
 import dao.RoomDAO;
 import dao.mysql.MySQLRoomDAO;
+import dao.mysql.MySQLUtils;
 import model.rooms.Room;
 
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,50 +17,32 @@ public class EscapeRoom {
     
     public void addRoom(Room room) {
         //rooms.add(room);
-        
         Connection conn = null;
-        String jdbc = "jdbc:mysql://localhost:3306/mydb";
-        
         
         try {
-            conn = DriverManager.getConnection(jdbc, "root", "Obokaman1976.");
+            conn = MySQLUtils.getConn();
             RoomDAO dao = new MySQLRoomDAO(conn);
             dao.create(room);
-        } catch (DAOException|SQLException e) {
+        } catch (DAOException | SQLException e) {
             System.out.println(e);
-            
         } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    System.out.println(e);
-                }
-            }
+            MySQLUtils.closeConn(conn);
         }
     }
     
     public void showAllRooms() {
         // rooms.forEach(System.out::println);
         Connection conn = null;
-        String jdbc = "jdbc:mysql://localhost:3306/mydb";
-        
         
         try {
-            conn = DriverManager.getConnection(jdbc, "root", "Obokaman1976.");
+            conn = MySQLUtils.getConn();
             RoomDAO dao = new MySQLRoomDAO(conn);
             List<Room> rooms = dao.readAll();
             rooms.forEach(System.out::println);
-        } catch (DAOException|SQLException e) {
+        } catch (DAOException | SQLException e) {
             System.out.println(e);
-                    } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    System.out.println(e);
-                }
-            }
+        } finally {
+            MySQLUtils.closeConn(conn);
         }
     }
     

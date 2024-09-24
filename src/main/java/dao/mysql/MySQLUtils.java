@@ -1,12 +1,12 @@
 package dao.mysql;
 
 import dao.DAOException;
+import dao.RoomDAO;
 import factory.*;
 import model.escape_room.Thematic;
+import model.rooms.Room;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class MySQLUtils {
     public static void close (PreparedStatement stat) throws DAOException {
@@ -47,5 +47,23 @@ public class MySQLUtils {
             }
         }
         return null;
+    }
+    
+    public static Connection getConn () throws SQLException {
+        
+        Connection conn = null;
+        String jdbc = "jdbc:mysql://localhost:3306/escape_room";
+        conn = DriverManager.getConnection(jdbc, "root", "Obokaman1976.");
+        return conn;
+    }
+    
+    public static void closeConn (Connection conn) {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
     }
 }
