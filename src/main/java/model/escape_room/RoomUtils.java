@@ -1,14 +1,10 @@
 package model.escape_room;
 
-import dao.ClientDAO;
 import dao.DAOException;
 import dao.RoomDAO;
-import dao.mysql.MySQLClientDAO;
 import dao.mysql.MySQLRoomDAO;
 import dao.mysql.MySQLUtils;
 import factory.*;
-import model.clients.Client;
-import model.clients.Ticket;
 import model.clues.Clue;
 import model.decorations.Decoration;
 import model.rooms.Difficulty;

@@ -88,7 +88,7 @@ public class EscapeRoom {
         }
     }
     
-    protected void listClients() {
+    public void listClients() {
         Connection conn = null;
         
         try {

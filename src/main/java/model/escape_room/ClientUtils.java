@@ -5,10 +5,8 @@ import dao.DAOException;
 import dao.mysql.MySQLClientDAO;
 import dao.mysql.MySQLUtils;
 import model.clients.Client;
-
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Scanner;
 
 public class ClientUtils {
     public static Client addClient() {
