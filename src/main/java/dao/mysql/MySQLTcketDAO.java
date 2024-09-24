@@ -23,8 +23,8 @@ public class MySQLTcketDAO implements TicketDAO {
     final String UPDATE = "UPDATE tickets SET idclient = ?, value = ?, idroom = ? " +
             "WHERE idtickets = ?";
     final String DELETE = "DELETE FROM tickets WHERE idtickets = ?";
-    final String GETALL = "SELECT * FROM idtickets";
-    final String GETONE = "SELECT idrooms* FROM tickets " +
+    final String GETALL = "SELECT * FROM tickets";
+    final String GETONE = "SELECT * FROM tickets " +
             "WHERE idtickets = ?";
     
     private Connection conn;
@@ -62,14 +62,18 @@ public class MySQLTcketDAO implements TicketDAO {
     
     private Ticket convert(ResultSet rs) throws SQLException, DAOException {
         
-        MySQLClientDAO mySQLClientDAO=new MySQLClientDAO(conn);
-        Client client=mySQLClientDAO.readOne(rs.getInt("idclient"));
-        float value=rs.getFloat("value");
-        MySQLRoomDAO mySQLRoomDAO=new MySQLRoomDAO(conn);
-        Room room=mySQLRoomDAO.readOne(rs.getInt("idroom"));
-        
-        Ticket ticket=new Ticket(client, value, room);
-        room.setId(rs.getInt("idtickets"));
+        MySQLClientDAO mySQLClientDAO = new MySQLClientDAO(conn);
+        Client client = mySQLClientDAO.readOne(rs.getInt("idclient"));
+        float value = rs.getFloat("value");
+        MySQLRoomDAO mySQLRoomDAO = new MySQLRoomDAO(conn);
+        Room room = null;
+        try {
+            room = mySQLRoomDAO.readOne(rs.getInt("idroom"));
+        } catch (DAOException e) {
+            System.out.println(e);
+        }
+        Ticket ticket = new Ticket(client, value, room);
+        ticket.setId(rs.getInt("idtickets"));
         return ticket;
     }
     
@@ -155,4 +159,8 @@ public class MySQLTcketDAO implements TicketDAO {
         }
     }
 }
+    
+
+
+
 
