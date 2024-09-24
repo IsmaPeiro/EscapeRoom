@@ -13,18 +13,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class RoomUtils {
     public static Room addRoom() {
-        int id;
         String name;
         Difficulty difficulty;
         List<Clue> clues=null;
         List<Decoration> decorations=null;
         
-        Scanner sc = new Scanner(System.in);
-        
         System.out.println("What thematic have the Room?");
         RoomAbstractFactory factory = choseThematic();
-        System.out.println("Name:");
-        name = sc.nextLine();
+        name=Input.readString("Name:");
         System.out.println("Difficulty:");
         difficulty=choseDifficulty();
         
