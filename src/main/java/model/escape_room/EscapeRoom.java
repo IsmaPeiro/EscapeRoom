@@ -1,9 +1,12 @@
 package model.escape_room;
 
+import dao.ClientDAO;
 import dao.DAOException;
 import dao.RoomDAO;
+import dao.mysql.MySQLClientDAO;
 import dao.mysql.MySQLRoomDAO;
 import dao.mysql.MySQLUtils;
+import model.clients.Client;
 import model.rooms.Room;
 
 import java.sql.Connection;
@@ -68,4 +71,18 @@ public class EscapeRoom {
         return room;
     }
     
+    public void listClients() {
+        Connection conn = null;
+        
+        try {
+            conn = MySQLUtils.getConn();
+            ClientDAO dao = new MySQLClientDAO(conn);
+            List<Client> clients = dao.readAll();
+            clients.forEach(System.out::println);
+        } catch (DAOException | SQLException e) {
+            System.out.println(e);
+        } finally {
+            MySQLUtils.closeConn(conn);
+        }
+    }
 }
