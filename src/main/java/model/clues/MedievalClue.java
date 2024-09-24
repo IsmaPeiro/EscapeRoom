@@ -10,6 +10,6 @@ public class MedievalClue extends Clue {
     
     @Override
     public String toString() {
-        return "MedievalClue{} " + super.toString();
+        return "Medieval Clue: " + super.toString();
     }
 }

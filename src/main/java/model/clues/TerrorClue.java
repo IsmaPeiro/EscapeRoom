@@ -10,6 +10,6 @@ public class TerrorClue extends Clue {
     
     @Override
     public String toString() {
-        return "TerrorClue{} " + super.toString();
+        return "Terror Clue: " + super.toString();
     }
 }

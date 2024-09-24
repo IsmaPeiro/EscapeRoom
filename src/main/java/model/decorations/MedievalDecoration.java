@@ -10,6 +10,6 @@ public class MedievalDecoration extends Decoration {
     
     @Override
     public String toString() {
-        return "MedievalDecoration{} " + super.toString();
+        return "Medieval Decoration: " + super.toString();
     }
 }

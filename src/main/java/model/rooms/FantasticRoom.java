@@ -14,6 +14,6 @@ public class FantasticRoom extends Room {
     
     @Override
     public String toString() {
-        return "FantasticRoom{} " + super.toString();
+        return "Fantastic Room: " + "\n" + super.toString();
     }
 }

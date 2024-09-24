@@ -56,9 +56,6 @@ public abstract class Decoration {
     
     @Override
     public String toString() {
-        return "Decoration{" +
-                "id=" + id +
-                ", material='" + material + '\'' +
-                '}';
+        return "Decoration id: " + id + ", material: " + material + ", value: " + value;
     }
 }

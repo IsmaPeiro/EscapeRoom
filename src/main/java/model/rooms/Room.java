@@ -75,13 +75,21 @@ public abstract class Room {
     
     @Override
     public String toString() {
-        return "Room{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", difficulty=" + difficulty +
-                ", clues=" + clues +
-                ", decorations=" + decorations +
-                '}';
+        String clueList = "", decorationList="";
+        for (Clue clue : clues) {
+            clueList+=clue.toString()+"\n";
+        }
+        
+        for (Decoration decoration : decorations) {
+            decorationList+=decoration.toString()+"\n";
+        }
+        
+        return "Room id: " + id + "\n" +
+                "name: " + name + "\n" +
+                "difficulty: " + difficulty + "\n" +
+                "clues: " + "\n" + clueList +
+                "decorations: " + "\n" + decorationList;
+        
     }
 }
 

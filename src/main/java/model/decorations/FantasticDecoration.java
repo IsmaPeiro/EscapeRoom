@@ -10,6 +10,6 @@ public class FantasticDecoration extends Decoration {
     
     @Override
     public String toString() {
-        return "FantasticDecoration{} " + super.toString();
+        return "Fantastic Decoration: " + super.toString();
     }
 }

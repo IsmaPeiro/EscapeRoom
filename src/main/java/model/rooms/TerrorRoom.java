@@ -14,6 +14,6 @@ public class TerrorRoom extends Room {
     
     @Override
     public String toString() {
-        return "TerrorRoom{} " + super.toString();
+        return "Terror Room: " + "\n" + super.toString();
     }
 }

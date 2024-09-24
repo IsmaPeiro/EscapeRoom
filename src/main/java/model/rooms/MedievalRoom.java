@@ -14,6 +14,6 @@ public class MedievalRoom extends Room {
     
     @Override
     public String toString() {
-        return "MedievalRoom{} " + super.toString();
+        return "Medieval Room: " + "\n" + super.toString();
     }
 }

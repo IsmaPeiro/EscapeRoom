@@ -14,6 +14,6 @@ public class SciFiRoom extends Room {
     
     @Override
     public String toString() {
-        return "SciFiRoom{} " + super.toString();
+        return "SciFi Room: " + "\n" + super.toString();
     }
 }

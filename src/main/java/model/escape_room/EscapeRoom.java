@@ -44,7 +44,7 @@ public class EscapeRoom {
             conn = MySQLUtils.getConn();
             RoomDAO dao = new MySQLRoomDAO(conn);
             List<Room> rooms = dao.readAll();
-            rooms.forEach(System.out::println);
+            rooms.forEach(r-> System.out.println(r+"Value of Room: "+RoomUtils.calculateValue(r)+"\n"));
             total=(float)rooms.stream().mapToDouble(RoomUtils::calculateValue).sum();
             System.out.println("Total value of rooms: " + total);
         } catch (DAOException | SQLException e) {

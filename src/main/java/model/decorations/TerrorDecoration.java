@@ -10,6 +10,6 @@ public class TerrorDecoration extends Decoration {
     
     @Override
     public String toString() {
-        return "TerrorDecoration{} " + super.toString();
+        return "Terror Decoration: " + super.toString();
     }
 }

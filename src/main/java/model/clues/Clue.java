@@ -46,9 +46,6 @@ public abstract class Clue {
     
     @Override
     public String toString() {
-        return "Clue{" +
-                "id=" + id +
-                ", value=" + value +
-                '}';
+        return "Clue id: " + id + ", value: " + value;
     }
 }

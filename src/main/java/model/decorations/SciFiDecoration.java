@@ -10,6 +10,6 @@ public class SciFiDecoration extends Decoration {
     
     @Override
     public String toString() {
-        return "SciFiDecoration{} " + super.toString();
+        return "SciFi Decoration: " + super.toString();
     }
 }

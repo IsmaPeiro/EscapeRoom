@@ -10,6 +10,6 @@ public class FantasticClue extends Clue {
     
     @Override
     public String toString() {
-        return "FantasticClue{} " + super.toString();
+        return "Fantastic Clue: " + super.toString();
     }
 }
