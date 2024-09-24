@@ -74,7 +74,21 @@ public class EscapeRoom {
         return room;
     }
     
-    public void listClients() {
+    public void addClient(Client client) {
+        Connection conn = null;
+        
+        try {
+            conn = MySQLUtils.getConn();
+            ClientDAO dao = new MySQLClientDAO(conn);
+            dao.create(client);
+        } catch (DAOException | SQLException e) {
+            System.out.println(e);
+        } finally {
+            MySQLUtils.closeConn(conn);
+        }
+    }
+    
+    protected void listClients() {
         Connection conn = null;
         
         try {
@@ -82,6 +96,20 @@ public class EscapeRoom {
             ClientDAO dao = new MySQLClientDAO(conn);
             List<Client> clients = dao.readAll();
             clients.forEach(System.out::println);
+        } catch (DAOException | SQLException e) {
+            System.out.println(e);
+        } finally {
+            MySQLUtils.closeConn(conn);
+        }
+    }
+    
+    public void createTicket (Ticket ticket) {
+        Connection conn = null;
+        
+        try {
+            conn = MySQLUtils.getConn();
+            TicketDAO dao = new MySQLTcketDAO(conn);
+            dao.create(ticket);
         } catch (DAOException | SQLException e) {
             System.out.println(e);
         } finally {
@@ -99,20 +127,6 @@ public class EscapeRoom {
             
             System.out.println("Total value of tickets: "+
                     tickets.stream().mapToDouble(Ticket::getValue).sum());
-        } catch (DAOException | SQLException e) {
-            System.out.println(e);
-        } finally {
-            MySQLUtils.closeConn(conn);
-        }
-    }
-    
-    public void addClient(Client client) {
-        Connection conn = null;
-        
-        try {
-            conn = MySQLUtils.getConn();
-            ClientDAO dao = new MySQLClientDAO(conn);
-            dao.create(client);
         } catch (DAOException | SQLException e) {
             System.out.println(e);
         } finally {

@@ -1,11 +1,21 @@
 package model.escape_room;
 
+import dao.ClientDAO;
+import dao.DAOException;
+import dao.RoomDAO;
+import dao.mysql.MySQLClientDAO;
+import dao.mysql.MySQLRoomDAO;
+import dao.mysql.MySQLUtils;
 import factory.*;
+import model.clients.Client;
+import model.clients.Ticket;
 import model.clues.Clue;
 import model.decorations.Decoration;
 import model.rooms.Difficulty;
 import model.rooms.Room;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -98,5 +108,27 @@ public class RoomUtils {
             }
         }
         return null;
+    }
+    
+    public static Room searchRoom (int id) {
+        Connection conn = null;
+        Room room = null;
+        try {
+            conn = MySQLUtils.getConn();
+            RoomDAO dao = new MySQLRoomDAO(conn);
+            room = dao.readOne(id);
+        } catch (DAOException | SQLException e) {
+            System.out.println(e);
+        } finally {
+            MySQLUtils.closeConn(conn);
+        }
+        return room;
+    }
+    
+    public static float calculateValue (Room room) {
+        float total=0;
+        total+=(float)room.getClues().stream().mapToDouble(Clue::getValue).sum();
+        total+=(float)room.getDecorations().stream().mapToDouble(Decoration::getValue).sum();
+        return total;
     }
 }
