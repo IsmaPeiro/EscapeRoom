@@ -127,4 +127,23 @@ public class RoomUtils {
         total+=(float)room.getDecorations().stream().mapToDouble(Decoration::getValue).sum();
         return total;
     }
+    
+    public static Room removeRoom () {
+        int roomId;
+        Room room=null;
+        boolean exit=false;
+        
+        while (room==null&&!exit) {
+            roomId = Input.readInt("Input the id of the room to remove or 0 to exit:");
+            if (roomId==0) {
+                exit=true;
+            } else {
+                room=searchRoom(roomId);
+            }
+        }
+        if (room!=null&&!Input.readYesNo("Are you sure?")) {
+            room=null;
+        }
+        return room;
+    }
 }

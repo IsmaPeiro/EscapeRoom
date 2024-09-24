@@ -133,4 +133,20 @@ public class EscapeRoom {
             MySQLUtils.closeConn(conn);
         }
     }
+    
+    public void removeRoom(Room room) {
+        if (room!=null) {
+            Connection conn = null;
+            
+            try {
+                conn = MySQLUtils.getConn();
+                RoomDAO dao = new MySQLRoomDAO(conn);
+                dao.delete(room);
+            } catch (DAOException | SQLException e) {
+                System.out.println(e);
+            } finally {
+                MySQLUtils.closeConn(conn);
+            }
+        }
+    }
 }
