@@ -39,12 +39,14 @@ public class EscapeRoom {
     public void showAllRooms() {
         // rooms.forEach(System.out::println);
         Connection conn = null;
-        
+        float total=0;
         try {
             conn = MySQLUtils.getConn();
             RoomDAO dao = new MySQLRoomDAO(conn);
             List<Room> rooms = dao.readAll();
             rooms.forEach(System.out::println);
+            total=(float)rooms.stream().mapToDouble(RoomUtils::calculateValue).sum();
+            System.out.println("Total value of rooms: " + total);
         } catch (DAOException | SQLException e) {
             System.out.println(e);
         } finally {
