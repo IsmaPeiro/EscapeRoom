@@ -17,7 +17,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class EscapeRoom {
     private List<Room> rooms = new ArrayList<>();
@@ -100,6 +99,20 @@ public class EscapeRoom {
             
             System.out.println("Total value of tickets: "+
                     tickets.stream().mapToDouble(Ticket::getValue).sum());
+        } catch (DAOException | SQLException e) {
+            System.out.println(e);
+        } finally {
+            MySQLUtils.closeConn(conn);
+        }
+    }
+    
+    public void addClient(Client client) {
+        Connection conn = null;
+        
+        try {
+            conn = MySQLUtils.getConn();
+            ClientDAO dao = new MySQLClientDAO(conn);
+            dao.create(client);
         } catch (DAOException | SQLException e) {
             System.out.println(e);
         } finally {
