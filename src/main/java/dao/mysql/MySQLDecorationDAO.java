@@ -14,13 +14,14 @@ public class MySQLDecorationDAO implements DecorationDAO {
     
     final String INSERT = "INSERT INTO decorations (thematic, material, value, idroom) " +
             "VALUES (?, ?, ?)";
-    final String UPDATE = "UPDATE decorations SET thematic = ?, material = ?, value = ?, idroom = ?"
-            + "WHERE iddecorations = ?";
+    final String UPDATE = "UPDATE decorations SET thematic = ?, material = ?, value = ?, idroom = ? WHERE iddecorations = ?";
     final String DELETE = "DELETE FROM decorations WHERE iddecorations = ?";
     final String GETALL = "SELECT * FROM decorations";
     final String GETONE = "SELECT iddecorations, thematic, material, value, idroom FROM decorations " +
             "WHERE iddecorations = ?";
     final String GETBYIDROOM = "SELECT * FROM decorations WHERE idroom = ?";
+    final String GETAVAILABLE = "SELECT * FROM decorations WHERE thematic = ? AND idroom IS NULL";
+    final String SETROOMTONULL = "UPDATE decorations SET idroom = NULL WHERE iddecorations = ?";
     
     private Connection conn;
     
@@ -134,6 +135,45 @@ public class MySQLDecorationDAO implements DecorationDAO {
             MySQLUtils.close(rs);
         }
         return decorations;
+    }
+    
+    @Override
+    public List<Decoration> readAvaiable(Thematic thematic) throws DAOException {
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+        List<Decoration> decorations = new ArrayList<>();
+        try {
+            stat = conn.prepareStatement(GETAVAILABLE);
+            stat.setString(1, thematic.toString());
+            rs = stat.executeQuery();
+            while (rs.next()) {
+                decorations.add(convert(rs));
+            }
+        } catch (SQLException e) {
+            throw new DAOException("SQL Error", e);
+        } finally {
+            MySQLUtils.close(stat);
+            MySQLUtils.close(rs);
+        }
+        return decorations;
+    }
+    
+    @Override
+    public void setRommToNull(Decoration decoration) throws DAOException {
+        PreparedStatement stat = null;
+        
+        try {
+            stat = conn.prepareStatement(SETROOMTONULL);
+            
+            stat.setInt(1, decoration.getId());
+            if (stat.executeUpdate() == 0) {
+                throw new DAOException("It may not have been modified");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("SQL Error", e);
+        } finally {
+            MySQLUtils.close(stat);
+        }
     }
     
     @Override
