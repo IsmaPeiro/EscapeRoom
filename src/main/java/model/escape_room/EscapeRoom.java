@@ -28,9 +28,8 @@ public class EscapeRoom {
     }
     
     private Room searchRoom () {
-        int id; Room room=null;
-        boolean found=false;
-        int i=0;
+        int id;
+        Room room=null;
         Scanner sc=new Scanner(System.in);
         System.out.println("Id:");
         id=sc.nextInt();

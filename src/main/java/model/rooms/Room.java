@@ -4,6 +4,7 @@ import model.clues.Clue;
 import model.decorations.Decoration;
 import model.escape_room.Thematic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Room {
@@ -18,7 +19,7 @@ public abstract class Room {
         this.id = id;
         this.name = name;
         this.difficulty = difficulty;
-        this.clues = clues;
+        this.clues = new ArrayList<>();
         this.decorations = decorations;
     }
     
@@ -70,10 +71,18 @@ public abstract class Room {
         this.decorations = decorations;
     }
     
-    public void addClue (Clue clue) {
-        clues.add(clue);
+    public abstract void addClueToList(Clue clue);
+
+    public abstract void createClue();
+
+    public Clue findClue (int id){
+        return clues.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
     }
-    
+
+    public void removeClueFromList(Clue clue){
+        clues.remove(clue);
+    }
+
     @Override
     public String toString() {
         return "Room{" +
@@ -84,6 +93,7 @@ public abstract class Room {
                 ", decorations=" + decorations +
                 '}';
     }
+
 }
 
 

@@ -2,6 +2,7 @@ package factory;
 
 import model.clues.Clue;
 import model.clues.FantasticClue;
+import model.clues.MedievalClue;
 import model.clues.SciFiClue;
 import model.decorations.Decoration;
 import model.decorations.FantasticDecoration;
@@ -20,8 +21,8 @@ public class SciFiRoomFactory implements RoomAbstractFactory {
     }
     
     @Override
-    public Clue createClue(int id, float value) {
-        return new SciFiClue(id, value);
+    public Clue createClue(float score, String difficulty) {
+        return new SciFiClue(score, difficulty);
     }
     
     @Override

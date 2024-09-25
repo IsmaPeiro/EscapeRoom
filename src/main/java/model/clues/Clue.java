@@ -5,11 +5,12 @@ import model.escape_room.Thematic;
 public abstract class Clue {
     protected int id;
     protected Thematic thematic;
-    protected float value;
+    protected float score;
+    protected String difficulty;
     
-    public Clue(int id, float value) {
-        this.id = id;
-        this.value = value;
+    public Clue(float score, String difficulty) {
+        this.score = score;
+        this.difficulty = difficulty;
     }
     
     public Thematic getThematic() {
@@ -28,19 +29,28 @@ public abstract class Clue {
         this.id = id;
     }
     
-    public float getValue() {
-        return value;
+    public float getScore() {
+        return score;
     }
     
-    public void setValue(float value) {
-        this.value = value;
+    public void setScore(float score) {
+        this.score = score;
     }
-    
+
+    public String getClueDifficulty (){
+        return difficulty;
+    }
+
+    public void setClueDifficulty(){
+        this.difficulty = difficulty;
+    }
+
     @Override
     public String toString() {
         return "Clue{" +
                 "id=" + id +
-                ", value=" + value +
+                ", score=" + score +
+                ", difficulty=" + difficulty +
                 '}';
     }
 }

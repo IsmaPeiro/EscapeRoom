@@ -15,12 +15,12 @@ public class FantasticRoomFactory implements RoomAbstractFactory {
     public Room createRoom(int id, String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
         return new FantasticRoom(id, name, difficulty, clues, decorations);
     }
-    
+
     @Override
-    public Clue createClue(int id, float value) {
-        return new FantasticClue(id, value);
+    public Clue createClue(float score, String difficulty) {
+        return new FantasticClue(score, difficulty);
     }
-    
+
     @Override
     public Decoration createDecoration(int id, String material, float value) {
         return new FantasticDecoration(id, material, value);

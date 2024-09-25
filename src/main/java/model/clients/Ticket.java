@@ -40,7 +40,7 @@ public class Ticket {
         return "Ticket{" +
                 "id=" + id +
                 ", client=" + client +
-                ", value=" + value +
+                ", score=" + value +
                 '}';
     }
 }

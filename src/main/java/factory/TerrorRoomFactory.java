@@ -2,6 +2,7 @@ package factory;
 
 import model.clues.Clue;
 import model.clues.FantasticClue;
+import model.clues.MedievalClue;
 import model.clues.TerrorClue;
 import model.decorations.Decoration;
 import model.decorations.FantasticDecoration;
@@ -20,8 +21,8 @@ public class TerrorRoomFactory implements RoomAbstractFactory {
     }
     
     @Override
-    public Clue createClue(int id, float value) {
-        return new TerrorClue(id, value);
+    public Clue createClue(float score, String difficulty) {
+        return new TerrorClue(score, difficulty);
     }
     
     @Override
