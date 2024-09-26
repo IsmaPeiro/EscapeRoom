@@ -21,8 +21,8 @@ public class SciFiRoomFactory implements RoomAbstractFactory {
     }
     
     @Override
-    public Clue createClue(float score, String difficulty) {
-        return new SciFiClue(score, difficulty);
+    public Clue createClue(float score, String difficulty, float value) {
+        return new SciFiClue(score, difficulty, value);
     }
     
     @Override

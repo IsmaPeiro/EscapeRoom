@@ -17,8 +17,8 @@ public class FantasticRoomFactory implements RoomAbstractFactory {
     }
 
     @Override
-    public Clue createClue(float score, String difficulty) {
-        return new FantasticClue(score, difficulty);
+    public Clue createClue(float score, String difficulty, float value) {
+        return new FantasticClue(score, difficulty, value);
     }
 
     @Override

@@ -24,7 +24,8 @@ public class MedievalRoom extends Room {
     public void createClue() {
         float score = ClueUtils.getClueScore();
         String difficulty = ClueUtils.getClueDifficulty();
-        MedievalClue medievalClue = new MedievalClue(score, difficulty);
+        float value = ClueUtils.getClueValue();
+        MedievalClue medievalClue = new MedievalClue(score, difficulty, value);
         addClueToList(medievalClue);
     }
 

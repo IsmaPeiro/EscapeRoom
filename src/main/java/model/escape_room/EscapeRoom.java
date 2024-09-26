@@ -21,6 +21,11 @@ public class EscapeRoom {
         Room room=searchRoom();
         ClueUtils.addClue (room);
     }
+
+    public void removeClueFromRoom (){
+        Room room = searchRoom();
+        ClueUtils.removeClue(room);
+    }
     
     public void addDecorationToRoom () {
         Room room=searchRoom();
@@ -36,5 +41,5 @@ public class EscapeRoom {
         room = rooms.stream().filter(r -> r.getId() == id).findFirst().orElse(null);
         return room;
     }
-    
+
 }

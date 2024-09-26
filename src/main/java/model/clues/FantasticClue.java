@@ -3,8 +3,8 @@ package model.clues;
 import model.escape_room.Thematic;
 
 public class FantasticClue extends Clue {
-    public FantasticClue(float score, String difficulty) {
-        super(score, difficulty);
+    public FantasticClue(float score, String difficulty, float value) {
+        super(score, difficulty, value);
         thematic=Thematic.FANTASTIC;
     }
 

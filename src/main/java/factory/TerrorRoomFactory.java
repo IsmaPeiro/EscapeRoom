@@ -21,8 +21,8 @@ public class TerrorRoomFactory implements RoomAbstractFactory {
     }
     
     @Override
-    public Clue createClue(float score, String difficulty) {
-        return new TerrorClue(score, difficulty);
+    public Clue createClue(float score, String difficulty, float value) {
+        return new TerrorClue(score, difficulty, value);
     }
     
     @Override

@@ -6,11 +6,13 @@ public abstract class Clue {
     protected int id;
     protected Thematic thematic;
     protected float score;
+    protected float value;
     protected String difficulty;
     
-    public Clue(float score, String difficulty) {
+    public Clue(float score, String difficulty, float value) {
         this.score = score;
         this.difficulty = difficulty;
+        this.value = value;
     }
     
     public Thematic getThematic() {
@@ -34,6 +36,14 @@ public abstract class Clue {
     }
     
     public void setScore(float score) {
+        this.score = score;
+    }
+
+    public float getValue() {
+        return score;
+    }
+
+    public void setValue(float value) {
         this.score = score;
     }
 

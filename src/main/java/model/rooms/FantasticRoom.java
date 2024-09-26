@@ -23,7 +23,8 @@ public class FantasticRoom extends Room {
     public void createClue() {
         float score = ClueUtils.getClueScore();
         String difficulty = ClueUtils.getClueDifficulty();
-        FantasticClue fantasticClue = new FantasticClue(score, difficulty);
+        float value = ClueUtils.getClueValue();
+        FantasticClue fantasticClue = new FantasticClue(score, difficulty, value);
         addClueToList(fantasticClue);
     }
 

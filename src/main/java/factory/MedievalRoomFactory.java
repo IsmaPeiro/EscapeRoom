@@ -20,8 +20,8 @@ public class MedievalRoomFactory implements RoomAbstractFactory {
     }
 
     @Override
-    public Clue createClue(float score, String difficulty) {
-        return new MedievalClue(score, difficulty);
+    public Clue createClue(float score, String difficulty, float value) {
+        return new MedievalClue(score, difficulty, value);
     }
 
     @Override

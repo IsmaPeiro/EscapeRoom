@@ -24,7 +24,8 @@ public class SciFiRoom extends Room {
     public void createClue() {
         float score = ClueUtils.getClueScore();
         String difficulty = ClueUtils.getClueDifficulty();
-        SciFiClue sciFiClue = new SciFiClue(score, difficulty);
+        float value = ClueUtils.getClueValue();
+        SciFiClue sciFiClue = new SciFiClue(score, difficulty, value);
         addClueToList(sciFiClue);
     }
 

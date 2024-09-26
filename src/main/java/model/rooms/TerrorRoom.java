@@ -24,7 +24,8 @@ public class TerrorRoom extends Room {
     public void createClue() {
         float score = ClueUtils.getClueScore();
         String difficulty = ClueUtils.getClueDifficulty();
-        TerrorClue terrorClue = new TerrorClue(score, difficulty);
+        float value = ClueUtils.getClueValue();
+        TerrorClue terrorClue = new TerrorClue(score, difficulty, value);
         addClueToList(terrorClue);
     }
 
