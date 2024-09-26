@@ -12,12 +12,12 @@ import java.util.List;
 
 public class MySQLDecorationDAO implements DecorationDAO {
     
-    final String INSERT = "INSERT INTO decorations (thematic, material, value, idroom) " +
+    final String INSERT = "INSERT INTO decorations (name, thematic, material, value, idroom) " +
             "VALUES (?, ?, ?)";
-    final String UPDATE = "UPDATE decorations SET thematic = ?, material = ?, value = ?, idroom = ? WHERE iddecorations = ?";
+    final String UPDATE = "UPDATE decorations SET name = ?, thematic = ?, material = ?, value = ?, idroom = ? WHERE iddecorations = ?";
     final String DELETE = "DELETE FROM decorations WHERE iddecorations = ?";
     final String GETALL = "SELECT * FROM decorations";
-    final String GETONE = "SELECT iddecorations, thematic, material, value, idroom FROM decorations " +
+    final String GETONE = "SELECT iddecorations, name, thematic, material, value, idroom FROM decorations " +
             "WHERE iddecorations = ?";
     final String GETBYIDROOM = "SELECT * FROM decorations WHERE idroom = ?";
     final String GETAVAILABLE = "SELECT * FROM decorations WHERE thematic = ? AND idroom IS NULL";
@@ -36,10 +36,11 @@ public class MySQLDecorationDAO implements DecorationDAO {
         
         try {
             stat = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
-            stat.setString(1, decoration.getThematic().toString());
-            stat.setString(2, decoration.getMaterial());
-            stat.setFloat(3, decoration.getValue());
-            stat.setInt(4, decoration.getIdRoom());
+            stat.setString(1, decoration.getName());
+            stat.setString(2, decoration.getThematic().toString());
+            stat.setString(3, decoration.getMaterial());
+            stat.setFloat(4, decoration.getValue());
+            stat.setInt(5, decoration.getIdRoom());
             if (stat.executeUpdate() == 0) {
                 throw new DAOException("It may not have been saved");
             }
@@ -58,6 +59,7 @@ public class MySQLDecorationDAO implements DecorationDAO {
     }
     
     private Decoration convert(ResultSet rs) throws SQLException {
+        String name = rs.getString("name");
         Thematic thematic = Thematic.valueOf(rs.getString("thematic"));
         String material = rs.getString("material");
         int value = rs.getInt("value");
@@ -66,7 +68,7 @@ public class MySQLDecorationDAO implements DecorationDAO {
             idRoom = null;
         }
         RoomAbstractFactory raf = MySQLUtils.selectFactroy(thematic);
-        Decoration decoration = raf.createDecoration(material, value);
+        Decoration decoration = raf.createDecoration(name, material, value);
         decoration.setIdRoom(idRoom);
         decoration.setId(rs.getInt("iddecorations"));
         return decoration;
@@ -183,11 +185,12 @@ public class MySQLDecorationDAO implements DecorationDAO {
         try {
             stat = conn.prepareStatement(UPDATE);
             
-            stat.setString(1, decoration.getThematic().toString());
-            stat.setString(2, decoration.getMaterial());
-            stat.setFloat(3, decoration.getValue());
-            stat.setInt(4, decoration.getIdRoom());
-            stat.setInt(5, decoration.getId());
+            stat.setString(1, decoration.getName());
+            stat.setString(2, decoration.getThematic().toString());
+            stat.setString(3, decoration.getMaterial());
+            stat.setFloat(4, decoration.getValue());
+            stat.setInt(5, decoration.getIdRoom());
+            stat.setInt(6, decoration.getId());
             if (stat.executeUpdate() == 0) {
                 throw new DAOException("It may not have been modified");
             }

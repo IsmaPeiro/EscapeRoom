@@ -146,4 +146,14 @@ public class RoomUtils {
         }
         return room;
     }
+    
+    public static Room selectRoom() {
+        Room room = null;
+        int id;
+        while (room == null) {
+            id = Input.readInt("Enter the id of room:");
+            room = RoomUtils.searchRoom(id);
+        }
+        return room;
+    }
 }

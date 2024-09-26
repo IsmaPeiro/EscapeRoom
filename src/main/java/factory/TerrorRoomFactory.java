@@ -22,7 +22,7 @@ public class TerrorRoomFactory implements RoomAbstractFactory {
     }
     
     @Override
-    public Decoration createDecoration(String material, float value) {
-        return new TerrorDecoration(material, value);
+    public Decoration createDecoration(String name, String material, float value) {
+        return new TerrorDecoration(name, material, value);
     }
 }

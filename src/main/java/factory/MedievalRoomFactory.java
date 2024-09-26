@@ -22,7 +22,7 @@ public class MedievalRoomFactory implements RoomAbstractFactory {
     }
     
     @Override
-    public Decoration createDecoration(String material, float value) {
-        return new MedievalDecoration(material, value);
+    public Decoration createDecoration(String name, String material, float value) {
+        return new MedievalDecoration(name, material, value);
     }
 }

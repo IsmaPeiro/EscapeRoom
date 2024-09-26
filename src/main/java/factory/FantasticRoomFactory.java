@@ -22,7 +22,7 @@ public class FantasticRoomFactory implements RoomAbstractFactory {
     }
     
     @Override
-    public Decoration createDecoration(String material, float value) {
-        return new FantasticDecoration(material, value);
+    public Decoration createDecoration(String name, String material, float value) {
+        return new FantasticDecoration(name, material, value);
     }
 }

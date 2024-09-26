@@ -21,7 +21,8 @@ public class EscapeRoomManagement {
                 case 8 -> listTickets(escape);
                 case 9 -> RemoveRoom(escape);
                 case 10 -> RemoveDecorationRoom(escape);
-                case 11 -> showInventory(escape);
+                case 11 -> RemoveClueRoom(escape);
+                case 12 -> showInventory(escape);
                 case 0 -> {
                     System.out.println("thanks.");
                     exit = true;
@@ -35,7 +36,7 @@ public class EscapeRoomManagement {
         Scanner sc = new Scanner(System.in);
         byte option = -1;
         final byte MINIMUM = 0;
-        final byte MAXIMUM = 11;
+        final byte MAXIMUM = 12;
         
         do {
             System.out.println("\nMENú PRINCIPAL");
@@ -49,7 +50,8 @@ public class EscapeRoomManagement {
             System.out.println("8. List Tickets.");
             System.out.println("9. Remove Room.");
             System.out.println("10. Remove Decoration from Room.");
-            System.out.println("11. Show Inventory.");
+            System.out.println("11. Remove Clue from Room.");
+            System.out.println("12. Show Inventory.");
             System.out.println("0. Exit.\n");
             if (sc.hasNextByte()) option = sc.nextByte();
             sc.nextLine();
@@ -98,6 +100,10 @@ public class EscapeRoomManagement {
     
     private void RemoveDecorationRoom(EscapeRoom escape) {
         escape.removeDecorationRoom ();
+    }
+    
+    private void RemoveClueRoom(EscapeRoom escape) {
+        escape.removeClueRoom ();
     }
     
     private void showInventory(EscapeRoom escape) {

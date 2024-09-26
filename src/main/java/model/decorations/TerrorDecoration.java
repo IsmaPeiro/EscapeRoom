@@ -3,8 +3,8 @@ package model.decorations;
 import model.escape_room.Thematic;
 
 public class TerrorDecoration extends Decoration {
-    public TerrorDecoration(String material, float value) {
-        super(material, value);
+    public TerrorDecoration(String name, String material, float value) {
+        super(name, material, value);
         thematic=Thematic.TERROR;
     }
     

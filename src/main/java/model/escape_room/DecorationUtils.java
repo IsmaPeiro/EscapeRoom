@@ -1,11 +1,14 @@
 package model.escape_room;
 
 import dao.ClientDAO;
+import dao.ClueDAO;
 import dao.DAOException;
 import dao.DecorationDAO;
 import dao.mysql.MySQLClientDAO;
+import dao.mysql.MySQLClueDAO;
 import dao.mysql.MySQLDecorationDAO;
 import dao.mysql.MySQLUtils;
+import model.clues.Clue;
 import model.decorations.Decoration;
 import model.rooms.Room;
 
@@ -14,15 +17,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class DecorationUtils {
-    public static Room selectRoom() {
-        Room room = null;
-        int id;
-        while (room == null) {
-            id = Input.readInt("Enter the id of room:");
-            room = RoomUtils.searchRoom(id);
-        }
-        return room;
-    }
     
     public static Decoration addDecoration(Room room) {
         Decoration decoration = null;
@@ -55,11 +49,15 @@ public class DecorationUtils {
         Connection conn = null;
         List<Decoration> decorations = room.getDecorations();
         
-        decorations.forEach(System.out::println);
-        while (decoration == null) {
-            int decorationID = Input.readInt("Insert the id of decoration:");
-            decoration = decorations.stream().filter(d -> d.getId() == decorationID).findFirst().orElse(null);
-            if (decoration == null) System.out.println("Invalid Decoration");
+        if (!decorations.isEmpty()) {
+            decorations.forEach(System.out::println);
+            while (decoration == null) {
+                int decorationID = Input.readInt("Insert the id of decoration:");
+                decoration = decorations.stream().filter(d -> d.getId() == decorationID).findFirst().orElse(null);
+                if (decoration == null) System.out.println("Invalid Decoration");
+            }
+        } else {
+            System.out.println("No decorations available.");
         }
         return decoration;
     }

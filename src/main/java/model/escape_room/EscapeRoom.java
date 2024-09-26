@@ -51,46 +51,86 @@ public class EscapeRoom {
     }
     
     public void addClueToRoom() {
-        Room room = searchRoom();
-        ClueUtils.addClue(room);
+        Room room;
+        Clue clue;
+        room = RoomUtils.selectRoom();
+        clue = ClueUtils.addClue(room);
+        if (clue != null) {
+            clue.setIdRoom(room.getId());
+            
+            Connection conn = null;
+            
+            try {
+                conn = MySQLUtils.getConn();
+                ClueDAO dao = new MySQLClueDAO(conn);
+                dao.update(clue);
+            } catch (DAOException | SQLException e) {
+                System.out.println(e);
+            } finally {
+                MySQLUtils.closeConn(conn);
+            }
+        }
     }
     
     public void addDecorationToRoom() {
         Room room;
         Decoration decoration;
-        room = DecorationUtils.selectRoom();
+        room = RoomUtils.selectRoom();
         decoration = DecorationUtils.addDecoration(room);
-        decoration.setIdRoom(room.getId());
-        
-        Connection conn = null;
-        
-        try {
-            conn = MySQLUtils.getConn();
-            DecorationDAO dao = new MySQLDecorationDAO(conn);
-            dao.update(decoration);
-        } catch (DAOException | SQLException e) {
-            System.out.println(e);
-        } finally {
-            MySQLUtils.closeConn(conn);
+        if (decoration != null) {
+            decoration.setIdRoom(room.getId());
+            
+            Connection conn = null;
+            
+            try {
+                conn = MySQLUtils.getConn();
+                DecorationDAO dao = new MySQLDecorationDAO(conn);
+                dao.update(decoration);
+            } catch (DAOException | SQLException e) {
+                System.out.println(e);
+            } finally {
+                MySQLUtils.closeConn(conn);
+            }
+        }
+    }
+    
+    public void removeClueRoom() {
+        Room room;
+        Clue clue;
+        room = RoomUtils.selectRoom();
+        clue = ClueUtils.removeClue(room);
+        if (clue != null) {
+            Connection conn = null;
+            
+            try {
+                conn = MySQLUtils.getConn();
+                ClueDAO dao = new MySQLClueDAO(conn);
+                dao.setRommToNull(clue);
+            } catch (DAOException | SQLException e) {
+                System.out.println(e);
+            } finally {
+                MySQLUtils.closeConn(conn);
+            }
         }
     }
     
     public void removeDecorationRoom() {
         Room room;
         Decoration decoration;
-        room = DecorationUtils.selectRoom();
+        room = RoomUtils.selectRoom();
         decoration = DecorationUtils.removeDecoration(room);
-        
-        Connection conn = null;
-        
-        try {
-            conn = MySQLUtils.getConn();
-            DecorationDAO dao = new MySQLDecorationDAO(conn);
-            dao.setRommToNull(decoration);
-        } catch (DAOException | SQLException e) {
-            System.out.println(e);
-        } finally {
-            MySQLUtils.closeConn(conn);
+        if (decoration!=null) {
+            Connection conn = null;
+            
+            try {
+                conn = MySQLUtils.getConn();
+                DecorationDAO dao = new MySQLDecorationDAO(conn);
+                dao.setRommToNull(decoration);
+            } catch (DAOException | SQLException e) {
+                System.out.println(e);
+            } finally {
+                MySQLUtils.closeConn(conn);
+            }
         }
     }
     
@@ -208,11 +248,11 @@ public class EscapeRoom {
                 } else {
                     used = "available";
                 }
-                System.out.println("id: " + decoration.getId() + "," + decoration.getThematic() + ", " +
+                System.out.println("id: " + decoration.getId() + ", " + decoration.getName() + ", " + decoration.getThematic() + ", " +
                         decoration.getValue() + ", " + used);
             }
-            float totalDec=(float)decorations.stream().mapToDouble(Decoration::getValue).sum();
-            System.out.println("Total value of decorations: "+totalDec);
+            float totalDec = (float) decorations.stream().mapToDouble(Decoration::getValue).sum();
+            System.out.println("Total value of decorations: " + totalDec);
             System.out.println();
             System.out.println("Available clues:");
             for (Clue clue : clues) {
@@ -225,10 +265,10 @@ public class EscapeRoom {
                 System.out.println("id: " + clue.getId() + "," + clue.getThematic() + ", " +
                         clue.getValue() + ", " + used);
             }
-            float totalClues=(float)clues.stream().mapToDouble(Clue::getValue).sum();
-            System.out.println("Total value of clues: "+totalClues);
+            float totalClues = (float) clues.stream().mapToDouble(Clue::getValue).sum();
+            System.out.println("Total value of clues: " + totalClues);
             System.out.println();
-            System.out.println("Total value of inventory: "+(totalDec+totalClues));
+            System.out.println("Total value of inventory: " + (totalDec + totalClues));
             
         } catch (DAOException | SQLException e) {
             System.out.println(e);

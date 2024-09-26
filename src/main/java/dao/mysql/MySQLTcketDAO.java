@@ -64,7 +64,7 @@ public class MySQLTcketDAO implements TicketDAO {
         try {
             room = mySQLRoomDAO.readOne(rs.getInt("idroom"));
         } catch (DAOException e) {
-            System.out.println(e);
+            System.out.println("ticket id: "+rs.getInt("idtickets")+ " room was deleted");
         }
         Ticket ticket = new Ticket(client, value, room);
         ticket.setId(rs.getInt("idtickets"));
