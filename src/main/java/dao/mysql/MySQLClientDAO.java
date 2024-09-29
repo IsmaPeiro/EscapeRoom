@@ -19,6 +19,8 @@ public class MySQLClientDAO implements ClientDAO {
     final String GETALL = "SELECT * FROM clients";
     final String GETONE = "SELECT * FROM clients " +
             "WHERE idclients = ?";
+    final String GETSUBSCRIBED = "SELECT * FROM clients " +
+            "WHERE subscribed = true";
     
     private Connection conn;
     
@@ -142,6 +144,25 @@ public class MySQLClientDAO implements ClientDAO {
         } finally {
             MySQLUtils.close(stat);
         }
+    }
+
+    public List<Client> getSubscribedClients() throws DAOException {
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+        List<Client> subscribedClients = new ArrayList<>();
+        try {
+            stat = conn.prepareStatement(GETSUBSCRIBED);
+            rs = stat.executeQuery();
+            while (rs.next()) {
+                subscribedClients.add(convert(rs));
+            }
+        }catch (SQLException e) {
+            throw new DAOException("SQL Error", e);
+        } finally {
+            MySQLUtils.close(stat);
+            MySQLUtils.close(rs);
+        }
+        return subscribedClients;
     }
 }
 

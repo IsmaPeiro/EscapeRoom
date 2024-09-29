@@ -23,6 +23,7 @@ public class EscapeRoomManagement {
                 case 10 -> RemoveDecorationRoom(escape);
                 case 11 -> RemoveClueRoom(escape);
                 case 12 -> showInventory(escape);
+                case 13 -> unsubscribeClientNewsletter(escape);
                 case 0 -> {
                     System.out.println("thanks.");
                     exit = true;
@@ -52,6 +53,7 @@ public class EscapeRoomManagement {
             System.out.println("10. Remove Decoration from Room.");
             System.out.println("11. Remove Clue from Room.");
             System.out.println("12. Show Inventory.");
+            System.out.println("13. Unsubscribe Client");
             System.out.println("0. Exit.\n");
             if (sc.hasNextByte()) option = sc.nextByte();
             sc.nextLine();
@@ -108,5 +110,9 @@ public class EscapeRoomManagement {
     
     private void showInventory(EscapeRoom escape) {
         escape.showInventory();
+    }
+
+    private void unsubscribeClientNewsletter(EscapeRoom escape){
+        escape.unsubscribeClient();
     }
 }

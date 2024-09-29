@@ -7,6 +7,7 @@ import model.clients.Ticket;
 import model.clues.Clue;
 import model.decorations.Decoration;
 import model.rooms.Room;
+import observer.ClientObservable;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -25,6 +26,8 @@ public class EscapeRoom {
             conn = MySQLUtils.getConn();
             RoomDAO dao = new MySQLRoomDAO(conn);
             dao.create(room);
+            ClientObservable clientObservable = new ClientObservable();
+            clientObservable.notifyClients(room);
         } catch (DAOException | SQLException e) {
             System.out.println(e);
         } finally {
@@ -225,6 +228,17 @@ public class EscapeRoom {
                 MySQLUtils.closeConn(conn);
             }
         }
+    }
+
+    public void unsubscribeClient(){
+        String message = "Introduce the id of the client you want to unsubscribe:";
+        int id = Input.readInt(message);
+        Client client = ClientUtils.searchClient(id);
+        if(client.isSubscribed() == true){
+            client.setSubscribed(false);
+            System.out.println("Client unsubscribed successfully.");
+        }
+
     }
     
     public void showInventory() {
