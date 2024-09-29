@@ -93,6 +93,11 @@ public class EscapeRoom {
             }
         }
     }
+
+    public void removeDecorationFromRoom(){
+        Room room=searchRoom();
+        DecorationUtils.removeDecoration(room);
+    }
     
     public void removeClueRoom() {
         Room room;

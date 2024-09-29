@@ -69,9 +69,19 @@ public abstract class Room {
         this.decorations = decorations;
     }
     
-    public void addClue (Clue clue) {
+    public void addClueList (Clue clue) {
         clues.add(clue);
     }
+
+    public abstract void addDecorationToList(Decoration decoration);
+
+    public abstract void createDecoration();
+
+    public Decoration findDecoration(int id){
+        return decorations.stream().filter(d -> d.getId() == id).findFirst().orElse(null);
+    }
+
+    public void removeDecorationFromList(Decoration decoration){ decorations.remove(decoration); }
     
     @Override
     public String toString() {
