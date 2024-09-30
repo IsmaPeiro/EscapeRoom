@@ -21,8 +21,12 @@ public class MySQLClientDAO implements ClientDAO {
             "WHERE idclients = ?";
     final String GETSUBSCRIBED = "SELECT * FROM clients " +
             "WHERE subscribed = true";
+    final String UNSUBSCRIBE = "UPDATE clients SET subscribed = 0 " +
+            "WHERE idclients = ?";
+    final String SUBSCRIBE = "UPDATE clients SET subscribed = 1 " +
+            "WHERE idclients = ?";
     
-    private  Connection conn;
+    private Connection conn;
     
     public MySQLClientDAO(Connection conn) {
         this.conn = conn;
@@ -145,7 +149,7 @@ public class MySQLClientDAO implements ClientDAO {
             MySQLUtils.close(stat);
         }
     }
-
+    
     public List<Client> getSubscribedClients() throws DAOException {
         PreparedStatement stat = null;
         ResultSet rs = null;
@@ -156,13 +160,49 @@ public class MySQLClientDAO implements ClientDAO {
             while (rs.next()) {
                 subscribedClients.add(convert(rs));
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DAOException("SQL Error", e);
         } finally {
             MySQLUtils.close(stat);
             MySQLUtils.close(rs);
         }
         return subscribedClients;
+    }
+    
+    @Override
+    public void unsubscribeClient(int id) throws DAOException {
+        PreparedStatement stat = null;
+        
+        try {
+            stat = conn.prepareStatement(UNSUBSCRIBE);
+            
+            stat.setInt(1, id);
+            if (stat.executeUpdate() == 0) {
+                throw new DAOException("It may not have been modified");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("SQL Error", e);
+        } finally {
+            MySQLUtils.close(stat);
+        }
+    }
+    
+    @Override
+    public void subscribeClient(int id) throws DAOException {
+        PreparedStatement stat = null;
+        
+        try {
+            stat = conn.prepareStatement(SUBSCRIBE);
+            
+            stat.setInt(1, id);
+            if (stat.executeUpdate() == 0) {
+                throw new DAOException("It may not have been modified");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("SQL Error", e);
+        } finally {
+            MySQLUtils.close(stat);
+        }
     }
 }
 

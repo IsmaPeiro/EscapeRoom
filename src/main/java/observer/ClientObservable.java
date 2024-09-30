@@ -24,7 +24,7 @@ public class ClientObservable {
             ClientDAO dao = new MySQLClientDAO(conn);
 
             List<Client> subscribedClients = dao.getSubscribedClients();
-            subscribedClients.forEach(c -> roomUpdate.update(room));
+            subscribedClients.forEach(c -> roomUpdate.update(room, c));
         } catch (SQLException | DAOException e) {
             System.out.println(e);
         } finally {

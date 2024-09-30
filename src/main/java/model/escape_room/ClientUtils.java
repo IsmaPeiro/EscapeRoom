@@ -5,6 +5,7 @@ import dao.DAOException;
 import dao.mysql.MySQLClientDAO;
 import dao.mysql.MySQLUtils;
 import model.clients.Client;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -13,14 +14,14 @@ public class ClientUtils {
         String name, surname;
         boolean subscribed;
         
-        name=Input.readString("Input the name:");
-        surname=Input.readString("Input the surname");
-        subscribed=Input.readYesNo("Want to subscribe?");
+        name = Input.readString("Input the name:");
+        surname = Input.readString("Input the surname");
+        subscribed = Input.readYesNo("Want to subscribe?");
         
         return new Client(name, surname, subscribed);
     }
     
-    public static Client searchClient (int id) {
+    public static Client searchClient(int id) {
         Connection conn = null;
         Client client = null;
         try {
@@ -34,4 +35,33 @@ public class ClientUtils {
         }
         return client;
     }
+    
+    public static void unsubscribe(Client client) {
+        Connection conn = null;
+        
+        try {
+            conn = MySQLUtils.getConn();
+            ClientDAO dao = new MySQLClientDAO(conn);
+            dao.unsubscribeClient(client.getId());
+        } catch (DAOException | SQLException e) {
+            System.out.println(e);
+        } finally {
+            MySQLUtils.closeConn(conn);
+        }
+    }
+    
+    public static void subscribe(Client client) {
+        Connection conn = null;
+        
+        try {
+            conn = MySQLUtils.getConn();
+            ClientDAO dao = new MySQLClientDAO(conn);
+            dao.subscribeClient(client.getId());
+        } catch (DAOException | SQLException e) {
+            System.out.println(e);
+        } finally {
+            MySQLUtils.closeConn(conn);
+        }
+    }
 }
+

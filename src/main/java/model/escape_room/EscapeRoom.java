@@ -96,11 +96,6 @@ public class EscapeRoom {
             }
         }
     }
-
-    public void removeDecorationFromRoom(){
-        Room room=searchRoom();
-        DecorationUtils.removeDecoration(room);
-    }
     
     public void removeClueRoom() {
         Room room;
@@ -127,7 +122,7 @@ public class EscapeRoom {
         Decoration decoration;
         room = RoomUtils.selectRoom();
         decoration = DecorationUtils.removeDecoration(room);
-        if (decoration!=null) {
+        if (decoration != null) {
             Connection conn = null;
             
             try {
@@ -140,18 +135,6 @@ public class EscapeRoom {
                 MySQLUtils.closeConn(conn);
             }
         }
-    }
-    
-    private Room searchRoom() {
-        int id;
-        Room room = null;
-        boolean found = false;
-        int i = 0;
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Id:");
-        id = sc.nextInt();
-        room = rooms.stream().filter(r -> r.getId() == id).findFirst().orElse(null);
-        return room;
     }
     
     public void addClient(Client client) {
@@ -229,16 +212,37 @@ public class EscapeRoom {
             }
         }
     }
-
-    public void unsubscribeClient(){
-        String message = "Introduce the id of the client you want to unsubscribe:";
-        int id = Input.readInt(message);
-        Client client = ClientUtils.searchClient(id);
-        if(client.isSubscribed() == true){
-            client.setSubscribed(false);
-            System.out.println("Client unsubscribed successfully.");
+    
+    public void subscribeClient() {
+        Client client = null;
+        while (client == null) {
+            String message = "Introduce the id of the client you want to subscribe:";
+            int id = Input.readInt(message);
+            client = ClientUtils.searchClient(id);
+            if (client==null||client.isSubscribed()) {
+                System.out.println("Client doesn't exists or is already subscribed.");
+            } else {
+                ClientUtils.subscribe(client);
+                System.out.println("Client subscribed.");
+            }
+            
         }
-
+    }
+    
+    public void unsubscribeClient() {
+        Client client = null;
+        while (client == null) {
+            String message = "Introduce the id of the client you want to unsubscribe:";
+            int id = Input.readInt(message);
+            client = ClientUtils.searchClient(id);
+            if (client==null||!client.isSubscribed()) {
+                System.out.println("Client doesn't exists or isn't subscribed.");
+            } else {
+                ClientUtils.unsubscribe(client);
+                System.out.println("Client unsubscribed.");
+            }
+            
+        }
     }
     
     public void showInventory() {

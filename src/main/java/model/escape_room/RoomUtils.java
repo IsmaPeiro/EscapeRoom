@@ -125,6 +125,7 @@ public class RoomUtils {
         float total=0;
         total+=(float)room.getClues().stream().mapToDouble(Clue::getValue).sum();
         total+=(float)room.getDecorations().stream().mapToDouble(Decoration::getValue).sum();
+        System.out.println(total);
         return total;
     }
     
