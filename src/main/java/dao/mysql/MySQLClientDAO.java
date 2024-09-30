@@ -22,7 +22,7 @@ public class MySQLClientDAO implements ClientDAO {
     final String GETSUBSCRIBED = "SELECT * FROM clients " +
             "WHERE subscribed = true";
     
-    private Connection conn;
+    private  Connection conn;
     
     public MySQLClientDAO(Connection conn) {
         this.conn = conn;

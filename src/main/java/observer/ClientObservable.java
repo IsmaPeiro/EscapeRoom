@@ -1,20 +1,34 @@
 package observer;
 
+import dao.ClientDAO;
 import dao.DAOException;
 import dao.mysql.MySQLClientDAO;
+import dao.mysql.MySQLUtils;
 import model.clients.Client;
 import model.rooms.Room;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClientObservable {
 
 
-    public void notifyClients(MySQLClientDAO clientsDao, Room room) throws DAOException {
+    public void notifyClients(Room room)  {
         RoomObserver roomUpdate = new RoomObserver();
-        List<Client> subscribedClients = clientsDao.getSubscribedClients();
-        subscribedClients.forEach(c -> roomUpdate.update(room));
+        Connection conn = null;
+
+        try {
+            conn = MySQLUtils.getConn();
+            ClientDAO dao = new MySQLClientDAO(conn);
+
+            List<Client> subscribedClients = dao.getSubscribedClients();
+            subscribedClients.forEach(c -> roomUpdate.update(room));
+        } catch (SQLException | DAOException e) {
+            System.out.println(e);
+        }finally{
+            MySQLUtils.closeConn(conn);
+        }
+
     }
-}
