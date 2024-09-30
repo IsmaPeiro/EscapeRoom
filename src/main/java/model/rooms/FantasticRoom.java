@@ -16,24 +16,6 @@ public class FantasticRoom extends Room {
     }
 
     @Override
-    public void createDecoration(){
-    String name = DecorationUtils.getNameDecoration();
-    String material = DecorationUtils.getMaterialDecoration();
-    float value = DecorationUtils.getValueDecoration();
-        FantasticDecoration fantasticDecoration = new FantasticDecoration(name, material, value);
-        addDecorationToList(fantasticDecoration);
-    }
-
-    @Override
-    public void addDecorationToList(Decoration decoration){
-        decorations.add(decoration);
-    }
-
-
-
-
-    
-    @Override
     public String toString() {
         return "Fantastic Room: " + "\n" + super.toString();
     }

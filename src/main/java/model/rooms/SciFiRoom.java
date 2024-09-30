@@ -15,20 +15,6 @@ public class SciFiRoom extends Room {
         thematic=Thematic.SCIFI;
     }
 
-    @Override
-    public void createDecoration(){
-        String name = DecorationUtils.getNameDecoration();
-        String material = DecorationUtils.getMaterialDecoration();
-        float value = DecorationUtils.getValueDecoration();
-        SciFiDecoration sciFiDecoration = new SciFiDecoration(name, material, value);
-        addDecorationToList(sciFiDecoration);
-    }
-
-    @Override
-    public void addDecorationToList(Decoration decoration){
-        decorations.add(decoration);
-    }
-
 
     @Override
     public String toString() {

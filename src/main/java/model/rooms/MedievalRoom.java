@@ -15,19 +15,6 @@ public class MedievalRoom extends Room {
         thematic=Thematic.MEDIEVAL;
     }
 
-    @Override
-    public void createDecoration(){
-        String name = DecorationUtils.getNameDecoration();
-        String material = DecorationUtils.getMaterialDecoration();
-        float value = DecorationUtils.getValueDecoration();
-        MedievalDecoration medievalDecoration = new MedievalDecoration(name, material, value);
-        addDecorationToList(medievalDecoration);
-    }
-
-    @Override
-    public void addDecorationToList(Decoration decoration){
-        decorations.add(decoration);
-    }
 
     @Override
     public String toString() {

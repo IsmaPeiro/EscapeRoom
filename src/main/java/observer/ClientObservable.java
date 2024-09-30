@@ -15,7 +15,7 @@ import java.util.List;
 public class ClientObservable {
 
 
-    public void notifyClients(Room room)  {
+    public void notifyClients(Room room) {
         RoomObserver roomUpdate = new RoomObserver();
         Connection conn = null;
 
@@ -27,8 +27,9 @@ public class ClientObservable {
             subscribedClients.forEach(c -> roomUpdate.update(room));
         } catch (SQLException | DAOException e) {
             System.out.println(e);
-        }finally{
+        } finally {
             MySQLUtils.closeConn(conn);
         }
 
     }
+}

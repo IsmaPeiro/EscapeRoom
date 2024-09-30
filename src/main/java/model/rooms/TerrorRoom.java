@@ -15,20 +15,6 @@ public class TerrorRoom extends Room {
         thematic=Thematic.TERROR;
     }
 
-    @Override
-    public void createDecoration(){
-        String name = DecorationUtils.getNameDecoration();
-        String material = DecorationUtils.getMaterialDecoration();
-        float value = DecorationUtils.getValueDecoration();
-        TerrorDecoration terrorDecoration = new TerrorDecoration(name, material, value);
-        addDecorationToList(terrorDecoration);
-    }
-
-    @Override
-    public void addDecorationToList(Decoration decoration){
-        decorations.add(decoration);
-    }
-
 
     @Override
     public String toString() {
