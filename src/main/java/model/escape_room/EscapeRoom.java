@@ -219,7 +219,7 @@ public class EscapeRoom {
             String message = "Introduce the id of the client you want to subscribe:";
             int id = Input.readInt(message);
             client = ClientUtils.searchClient(id);
-            if (client==null||client.isSubscribed()) {
+            if (client == null || client.isSubscribed()) {
                 System.out.println("Client doesn't exists or is already subscribed.");
             } else {
                 ClientUtils.subscribe(client);
@@ -235,13 +235,12 @@ public class EscapeRoom {
             String message = "Introduce the id of the client you want to unsubscribe:";
             int id = Input.readInt(message);
             client = ClientUtils.searchClient(id);
-            if (client==null||!client.isSubscribed()) {
+            if (client == null || !client.isSubscribed()) {
                 System.out.println("Client doesn't exists or isn't subscribed.");
             } else {
                 ClientUtils.unsubscribe(client);
                 System.out.println("Client unsubscribed.");
             }
-            
         }
     }
     
@@ -298,6 +297,31 @@ public class EscapeRoom {
         } finally {
             MySQLUtils.closeConn(conn);
         }
+    }
+    
+    public void printCertificate() {
+        Client client = null;
+        Room room = null;
+        while (client == null) {
+            String message = "Introduce the id of the client:";
+            int id = Input.readInt(message);
+            client = ClientUtils.searchClient(id);
+            if (client == null) {
+                System.out.println("Client doesn't exist.");
+            }
+        }
+        
+        while (room == null) {
+            String message = "Introduce the id of the room:";
+            int id = Input.readInt(message);
+            room = RoomUtils.searchRoom(id);
+            if (room == null) {
+                System.out.println("Room doesn't exist.");
+            }
+        }
+        
+        CertificateUtils.printCertificate (client, room);
+        
     }
 }
 
