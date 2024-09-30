@@ -5,27 +5,32 @@ import java.util.Scanner;
 public class EscapeRoomManagement {
     public void init() {
         
-        EscapeRoom escape = new EscapeRoom();
+        Inventory inventory = new Inventory();
+        RoomManagement rm=new RoomManagement();
+        ClueManagement cm=new ClueManagement();
+        DecorationManagement dm=new DecorationManagement();
+        ClientManagement clm=new ClientManagement();
+        TicketManagement tm = new TicketManagement();
         
         boolean exit = false;
         
         do {
             switch (menu()) {
-                case 1 -> addRoom(escape);
-                case 2 -> listRooms(escape);
-                case 3 -> addClue(escape);
-                case 4 -> addDecoration(escape);
-                case 5 -> addClient(escape);
-                case 6 -> createTicket(escape);
-                case 7 -> listClients(escape);
-                case 8 -> listTickets(escape);
-                case 9 -> RemoveRoom(escape);
-                case 10 -> RemoveDecorationRoom(escape);
-                case 11 -> RemoveClueRoom(escape);
-                case 12 -> showInventory(escape);
-                case 13 -> subscribeClientNewsletter(escape);
-                case 14 -> unsubscribeClientNewsletter(escape);
-                case 15 -> printCertificate(escape);
+                case 1 -> addRoom(rm);
+                case 2 -> listRooms(rm);
+                case 3 -> addClue(rm, cm);
+                case 4 -> addDecoration(rm, dm);
+                case 5 -> addClient(clm);
+                case 6 -> createTicket(rm, tm, clm);
+                case 7 -> listClients(clm);
+                case 8 -> listTickets(rm, tm);
+                case 9 -> RemoveRoom(rm);
+                case 10 -> RemoveDecorationRoom(rm, dm);
+                case 11 -> RemoveClueRoom(rm, cm);
+                case 12 -> showInventory(inventory);
+                case 13 -> subscribeClientNewsletter(clm);
+                case 14 -> unsubscribeClientNewsletter(clm);
+                case 15 -> printCertificate(rm, clm);
                 case 0 -> {
                     System.out.println("thanks.");
                     exit = true;
@@ -68,63 +73,64 @@ public class EscapeRoomManagement {
         return option;
     }
     
-    public void addRoom(EscapeRoom escape) {
-        escape.addRoom(RoomUtils.addRoom());
+    public void addRoom(RoomManagement rm) {
+        rm.addRoom();
     }
     
-    public void listRooms(EscapeRoom escape) {
-        escape.showAllRooms();
+    public void listRooms(RoomManagement rm) {
+        rm.showAllRooms();
     }
     
-    private void addClue(EscapeRoom escape) {
-        escape.addClueToRoom();
+    private void addClue(RoomManagement rm, ClueManagement cm) {
+        cm.addClueToRoom(rm);
     }
     
-    private void addDecoration(EscapeRoom escape) {
-        escape.addDecorationToRoom();
+    private void addDecoration(RoomManagement rm, DecorationManagement dm) {
+        dm.addDecorationToRoom(rm);
     }
     
-    private void addClient(EscapeRoom escape) {
-        escape.addClient(ClientUtils.addClient());
+    private void addClient(ClientManagement clm) {
+        clm.addClient();
     }
     
-    private void createTicket(EscapeRoom escape) {
-        escape.createTicket(TicketUtils.createTicket());
+    private void createTicket(RoomManagement rm, TicketManagement tm, ClientManagement clm) {
+        tm.createTicket(rm, clm);
     }
     
-    private void listClients(EscapeRoom escape) {
-        escape.listClients();
+    private void listClients(ClientManagement clm) {
+        clm.listClients();
     }
     
-    private void listTickets(EscapeRoom escape) {
-        escape.listTickets();
+    private void listTickets(RoomManagement rm, TicketManagement tm) {
+        tm.listTickets();
     }
     
-    private void RemoveRoom(EscapeRoom escape) {
-        escape.removeRoom (RoomUtils.removeRoom());
+    private void RemoveRoom(RoomManagement rm) {
+        rm.removeRoom ();
     }
     
-    private void RemoveDecorationRoom(EscapeRoom escape) {
-        escape.removeDecorationRoom ();
+    private void RemoveDecorationRoom(RoomManagement rm, DecorationManagement dm) {
+        dm.removeDecorationRoom (rm);
     }
     
-    private void RemoveClueRoom(EscapeRoom escape) {
-        escape.removeClueRoom ();
+    private void RemoveClueRoom(RoomManagement rm, ClueManagement cm) {
+        cm.removeClueRoom (rm);
+        
     }
     
-    private void showInventory(EscapeRoom escape) {
+    private void showInventory(Inventory escape) {
         escape.showInventory();
     }
     
-    private void unsubscribeClientNewsletter(EscapeRoom escape){
-        escape.unsubscribeClient();
+    private void unsubscribeClientNewsletter(ClientManagement clm){
+        clm.unsubscribeClient();
     }
     
-    private void subscribeClientNewsletter(EscapeRoom escape) {
-        escape.subscribeClient();
+    private void subscribeClientNewsletter(ClientManagement clm) {
+        clm.subscribeClient();
     }
     
-    private void printCertificate(EscapeRoom escape) {
-        escape.printCertificate();
+    private void printCertificate(RoomManagement rm, ClientManagement clm) {
+        clm.printCertificate(rm);
     }
 }

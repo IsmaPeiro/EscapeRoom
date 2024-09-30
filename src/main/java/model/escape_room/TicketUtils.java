@@ -5,7 +5,7 @@ import model.clients.Ticket;
 import model.rooms.Room;
 
 public class TicketUtils {
-    public static Ticket createTicket() {
+    public static Ticket inputTicket(RoomManagement rm, ClientManagement clm) {
         int clientId, roomId;
         float value;
         Client client = null;
@@ -13,12 +13,12 @@ public class TicketUtils {
         
         while (client == null) {
             clientId = Input.readInt("Input the id of the client:");
-            client = ClientUtils.searchClient(clientId);
+            client = clm.searchClient(clientId);
         }
         
         while (room == null) {
             roomId = Input.readInt("Input the id of the room:");
-            room = RoomUtils.searchRoom(roomId);
+            room = rm.searchRoom(roomId);
         }
         
         value=RoomUtils.calculateValue(room);

@@ -1,34 +1,28 @@
 package model.escape_room;
 
-import dao.DAOException;
-import dao.RoomDAO;
-import dao.mysql.MySQLRoomDAO;
-import dao.mysql.MySQLUtils;
 import factory.*;
 import model.clues.Clue;
 import model.decorations.Decoration;
 import model.rooms.Difficulty;
 import model.rooms.Room;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class RoomUtils {
-    public static Room addRoom() {
+    public static Room inputRoom() {
         String name;
         Difficulty difficulty;
-        List<Clue> clues=null;
-        List<Decoration> decorations=null;
+        List<Clue> clues = null;
+        List<Decoration> decorations = null;
         
         System.out.println("What thematic have the Room?");
         RoomAbstractFactory factory = choseThematic();
-        name=Input.readString("Name:");
+        name = Input.readString("Name:");
         System.out.println("Difficulty:");
-        difficulty=choseDifficulty();
+        difficulty = choseDifficulty();
         
         return factory.createRoom(name, difficulty, clues, decorations);
     }
@@ -106,55 +100,16 @@ public class RoomUtils {
         return null;
     }
     
-    public static Room searchRoom (int id) {
-        Connection conn = null;
-        Room room = null;
-        try {
-            conn = MySQLUtils.getConn();
-            RoomDAO dao = new MySQLRoomDAO(conn);
-            room = dao.readOne(id);
-        } catch (DAOException | SQLException e) {
-            System.out.println(e);
-        } finally {
-            MySQLUtils.closeConn(conn);
-        }
-        return room;
-    }
-    
-    public static float calculateValue (Room room) {
-        float total=0;
-        total+=(float)room.getClues().stream().mapToDouble(Clue::getValue).sum();
-        total+=(float)room.getDecorations().stream().mapToDouble(Decoration::getValue).sum();
-        System.out.println(total);
+    public static float calculateValue(Room room) {
+        float total = 0;
+        total += (float) room.getClues().stream().mapToDouble(Clue::getValue).sum();
+        total += (float) room.getDecorations().stream().mapToDouble(Decoration::getValue).sum();
         return total;
     }
     
-    public static Room removeRoom () {
-        int roomId;
-        Room room=null;
-        boolean exit=false;
-        
-        while (room==null&&!exit) {
-            roomId = Input.readInt("Input the id of the room to remove or 0 to exit:");
-            if (roomId==0) {
-                exit=true;
-            } else {
-                room=searchRoom(roomId);
-            }
-        }
-        if (room!=null&&!Input.readYesNo("Are you sure?")) {
-            room=null;
-        }
-        return room;
-    }
-    
-    public static Room selectRoom() {
-        Room room = null;
-        int id;
-        while (room == null) {
-            id = Input.readInt("Enter the id of room:");
-            room = RoomUtils.searchRoom(id);
-        }
-        return room;
+    public static int selectRoom() {
+        int roomId = 0;
+        roomId = Input.readInt("Input the id of the room or 0 to exit:");
+        return roomId;
     }
 }

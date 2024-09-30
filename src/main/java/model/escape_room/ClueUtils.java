@@ -13,36 +13,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ClueUtils {
-    public static Clue addClue(Room room) {
-        Clue clue = null;
-        Connection conn = null;
-        List<Clue> clues = null;
-        try {
-            conn = MySQLUtils.getConn();
-            ClueDAO dao = new MySQLClueDAO(conn);
-            clues = dao.readAvaiable(room.getThematic());
-        } catch (DAOException | SQLException e) {
-            System.out.println(e);
-        } finally {
-            MySQLUtils.closeConn(conn);
-        }
-        if (!clues.isEmpty()) {
-            clues.forEach(System.out::println);
-            while (clue == null) {
-                int decorationID = Input.readInt("Insert the id of decoration:");
-                clue = clues.stream().filter(d -> d.getId() == decorationID).findFirst().orElse(null);
-                if (clue == null) System.out.println("Invalid Decoration");
-            }
-        } else {
-            System.out.println("Not clues available.");
-        }
-        return clue;
-    }
-    
-    public static Clue removeClue (Room room) {
-        Clue clue = null;
-        Connection conn = null;
-        List<Clue> clues = room.getClues();
+    public static Clue readClue (List<Clue> clues) {
+        Clue clue=null;
         
         if (!clues.isEmpty()) {
             clues.forEach(System.out::println);
@@ -55,5 +27,22 @@ public class ClueUtils {
             System.out.println("No clues available.");
         }
         return clue;
+    }
+    
+    public static Room selectRoom (RoomManagement rm) {
+        Room room = null;
+        int roomId;
+        boolean exit=false;
+        
+        while (!exit) {
+            roomId = RoomUtils.selectRoom();
+            if (roomId != 0) {
+                room = rm.searchRoom(roomId);
+                if (room!=null) exit=true;
+            } else {
+                exit=true;
+            }
+        }
+        return room;
     }
 }
