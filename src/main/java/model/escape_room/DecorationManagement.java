@@ -139,7 +139,7 @@ public class DecorationManagement {
             dao.buy(decoration);
             System.out.println("Decoration bought.");
         } catch (DAOException | SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         } finally {
             MySQLUtils.closeConn(conn);
         }

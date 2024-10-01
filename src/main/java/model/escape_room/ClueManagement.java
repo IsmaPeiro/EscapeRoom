@@ -138,7 +138,7 @@ public class ClueManagement {
             dao.buy(clue);
             System.out.println("Clue bought.");
         } catch (DAOException | SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         } finally {
             MySQLUtils.closeConn(conn);
         }
