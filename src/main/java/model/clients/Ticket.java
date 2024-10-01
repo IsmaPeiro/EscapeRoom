@@ -48,9 +48,21 @@ public class Ticket {
     
     @Override
     public String toString() {
+        String roomDescription="";
+        if (room!=null) {
+            roomDescription=
+                    "Room id: " + room.getId() + "\n" +
+                    "Room Thematic: " + room.getThematic() + "\n" +
+                    "Room name: " + room.getName() + "\n" +
+                    "Room Difficulty: " + room.getDifficulty() + "\n";
+        } else {
+            roomDescription="Room was removed.\n";
+        }
+        
         return "Ticket id: " + id + "\n" +
-                client + "\n" +
+                client +
                 "value: " + value + "\n" +
-                "room: " + room + "\n";
+                roomDescription;
+                
     }
 }
