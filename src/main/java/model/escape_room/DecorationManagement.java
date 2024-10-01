@@ -4,6 +4,7 @@ import dao.DAOException;
 import dao.DecorationDAO;
 import dao.mysql.MySQLDecorationDAO;
 import dao.mysql.MySQLUtils;
+import factory.RoomAbstractFactory;
 import model.decorations.Decoration;
 import model.rooms.Room;
 
@@ -118,4 +119,29 @@ public class DecorationManagement {
         return room;
     }
     
+    public void newDecoration() {
+        String name;
+        String material;
+        float value;
+        Decoration decoration;
+        Connection conn = null;
+        
+        System.out.println("What theme has the decoration?");
+        RoomAbstractFactory factory = RoomUtils.choseThematic();
+        name = Input.readString("Name:");
+        material = Input.readString("Material:");
+        value = Input.readFloat("Value:");
+        decoration = factory.createDecoration(name, material, value);
+        
+        try {
+            conn = MySQLUtils.getConn();
+            DecorationDAO dao = new MySQLDecorationDAO(conn);
+            dao.buy(decoration);
+            System.out.println("Decoration bought.");
+        } catch (DAOException | SQLException e) {
+            System.out.println(e);
+        } finally {
+            MySQLUtils.closeConn(conn);
+        }
+    }
 }

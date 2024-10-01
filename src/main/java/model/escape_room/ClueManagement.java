@@ -4,6 +4,7 @@ import dao.ClueDAO;
 import dao.DAOException;
 import dao.mysql.MySQLClueDAO;
 import dao.mysql.MySQLUtils;
+import factory.RoomAbstractFactory;
 import model.clues.Clue;
 import model.rooms.Room;
 
@@ -117,5 +118,29 @@ public class ClueManagement {
             }
         }
         return room;
+    }
+    
+    public void newClue() {
+        float value;
+        Connection conn = null;
+        Clue clue;
+        
+        System.out.println("What theme has the clue?");
+        RoomAbstractFactory factory = RoomUtils.choseThematic();
+        System.out.println(factory);
+        value = Input.readFloat("Value:");
+        System.out.println(value);
+        clue = factory.createClue(value);
+        
+        try {
+            conn = MySQLUtils.getConn();
+            ClueDAO dao = new MySQLClueDAO(conn);
+            dao.buy(clue);
+            System.out.println("Clue bought.");
+        } catch (DAOException | SQLException e) {
+            System.out.println(e);
+        } finally {
+            MySQLUtils.closeConn(conn);
+        }
     }
 }

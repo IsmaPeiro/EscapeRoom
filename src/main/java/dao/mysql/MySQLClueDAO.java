@@ -14,6 +14,8 @@ public class MySQLClueDAO implements ClueDAO {
     
     final String INSERT = "INSERT INTO clues (thematic, value, idroom) " +
             "VALUES (?, ?, ?)";
+    final String BUY = "INSERT INTO clues (thematic, value) " +
+            "VALUES (?, ?)";
     final String UPDATE = "UPDATE clues SET thematic = ?, value = ?, idroom = ? WHERE idclues = ?";
     final String DELETE = "DELETE FROM clues WHERE idclues = ?";
     final String GETALL = "SELECT * FROM clues";
@@ -27,6 +29,33 @@ public class MySQLClueDAO implements ClueDAO {
     
     public MySQLClueDAO(Connection conn) {
         this.conn = conn;
+    }
+    
+    @Override
+    public void buy(Clue clue) throws DAOException {
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+        
+        try {
+            stat = conn.prepareStatement(BUY, Statement.RETURN_GENERATED_KEYS);
+            stat.setString(1, clue.getThematic().toString());
+            stat.setFloat(2, clue.getValue());
+            
+            if (stat.executeUpdate() == 0) {
+                throw new DAOException("It may not have been saved");
+            }
+            rs = stat.getGeneratedKeys();
+            if (rs.next()) {
+                clue.setId(rs.getInt(1));
+            } else {
+                throw new DAOException("This ID cannot be assigned to this clue.");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("SQL Error", e);
+        } finally {
+            MySQLUtils.close(stat);
+            MySQLUtils.close(rs);
+        }
     }
     
     @Override

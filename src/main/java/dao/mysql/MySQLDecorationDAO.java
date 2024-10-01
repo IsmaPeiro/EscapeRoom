@@ -3,6 +3,7 @@ package dao.mysql;
 import dao.DAOException;
 import dao.DecorationDAO;
 import factory.*;
+import model.clues.Clue;
 import model.decorations.Decoration;
 import model.escape_room.Thematic;
 
@@ -13,7 +14,9 @@ import java.util.List;
 public class MySQLDecorationDAO implements DecorationDAO {
     
     final String INSERT = "INSERT INTO decorations (name, thematic, material, value, idroom) " +
-            "VALUES (?, ?, ?)";
+            "VALUES (?, ?, ?, ?, ?)";
+    final String BUY = "INSERT INTO decorations (name, thematic, material, value) " +
+            "VALUES (?, ?, ?, ?)";
     final String UPDATE = "UPDATE decorations SET name = ?, thematic = ?, material = ?, value = ?, idroom = ? WHERE iddecorations = ?";
     final String DELETE = "DELETE FROM decorations WHERE iddecorations = ?";
     final String GETALL = "SELECT * FROM decorations";
@@ -27,6 +30,34 @@ public class MySQLDecorationDAO implements DecorationDAO {
     
     public MySQLDecorationDAO(Connection conn) {
         this.conn = conn;
+    }
+    
+    @Override
+    public void buy(Decoration decoration) throws DAOException {
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+        
+        try {
+            stat = conn.prepareStatement(BUY, Statement.RETURN_GENERATED_KEYS);
+            stat.setString(1, decoration.getName());
+            stat.setString(2, decoration.getThematic().toString());
+            stat.setString(3, decoration.getMaterial());
+            stat.setFloat(4, decoration.getValue());
+            if (stat.executeUpdate() == 0) {
+                throw new DAOException("It may not have been saved");
+            }
+            rs = stat.getGeneratedKeys();
+            if (rs.next()) {
+                decoration.setId(rs.getInt(1));
+            } else {
+                throw new DAOException("This ID cannot be assigned to this decoration.");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("SQL Error", e);
+        } finally {
+            MySQLUtils.close(stat);
+            MySQLUtils.close(rs);
+        }
     }
     
     @Override

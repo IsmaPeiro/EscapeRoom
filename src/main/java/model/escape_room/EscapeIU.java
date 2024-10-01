@@ -31,6 +31,8 @@ public class EscapeIU {
                 case 13 -> subscribeClientNewsletter(clm);
                 case 14 -> unsubscribeClientNewsletter(clm);
                 case 15 -> printCertificate(rm, clm);
+                case 16 -> buyClue(cm);
+                case 17 -> buyDecoration(dm);
                 case 0 -> {
                     System.out.println("thanks.");
                     exit = true;
@@ -44,7 +46,7 @@ public class EscapeIU {
         Scanner sc = new Scanner(System.in);
         byte option = -1;
         final byte MINIMUM = 0;
-        final byte MAXIMUM = 15;
+        final byte MAXIMUM = 17;
         
         do {
             System.out.println("\nMENú PRINCIPAL");
@@ -63,6 +65,8 @@ public class EscapeIU {
             System.out.println("13. Subscribe Client.");
             System.out.println("14. Unsubscribe Client.");
             System.out.println("15. Print certificate.");
+            System.out.println("16. Buy Clue.");
+            System.out.println("17. Buy Decoration.");
             System.out.println("0. Exit.\n");
             if (sc.hasNextByte()) option = sc.nextByte();
             sc.nextLine();
@@ -73,11 +77,11 @@ public class EscapeIU {
         return option;
     }
     
-    public void addRoom(RoomManagement rm) {
+    private void addRoom(RoomManagement rm) {
         rm.addRoom();
     }
     
-    public void listRooms(RoomManagement rm) {
+    private void listRooms(RoomManagement rm) {
         rm.showAllRooms();
     }
     
@@ -131,5 +135,13 @@ public class EscapeIU {
     
     private void printCertificate(RoomManagement rm, ClientManagement clm) {
         clm.printCertificate(rm);
+    }
+    
+    private void buyDecoration(DecorationManagement dm) {
+        dm.newDecoration();
+    }
+    
+    private void buyClue(ClueManagement cm) {
+        cm.newClue();
     }
 }
