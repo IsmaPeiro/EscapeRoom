@@ -26,6 +26,8 @@ public class EscapeRoomManagement {
                 case 13 -> subscribeClientNewsletter(escape);
                 case 14 -> unsubscribeClientNewsletter(escape);
                 case 15 -> printCertificate(escape);
+                case 16 -> buyClue(escape);
+                case 17 -> buyDecoration(escape);
                 case 0 -> {
                     System.out.println("thanks.");
                     exit = true;
@@ -33,13 +35,13 @@ public class EscapeRoomManagement {
             }
         } while (!exit);
     }
-    
-    
+
+
     public byte menu() {
         Scanner sc = new Scanner(System.in);
         byte option = -1;
         final byte MINIMUM = 0;
-        final byte MAXIMUM = 15;
+        final byte MAXIMUM = 17;
         
         do {
             System.out.println("\nMENú PRINCIPAL");
@@ -58,6 +60,8 @@ public class EscapeRoomManagement {
             System.out.println("13. Subscribe Client.");
             System.out.println("14. Unsubscribe Client.");
             System.out.println("15. Print certificate.");
+            System.out.println("16. Buy clue.");
+            System.out.println("17. Buy decoration.");
             System.out.println("0. Exit.\n");
             if (sc.hasNextByte()) option = sc.nextByte();
             sc.nextLine();
@@ -127,4 +131,10 @@ public class EscapeRoomManagement {
     private void printCertificate(EscapeRoom escape) {
         escape.printCertificate();
     }
+
+    private void buyClue(EscapeRoom escape) { escape.newClue(ClueUtils.newClue()); }
+
+    private void buyDecoration(EscapeRoom escape) { escape.newDecoration(DecorationUtils.newDecoration()); }
+
+
 }

@@ -323,5 +323,38 @@ public class EscapeRoom {
         CertificateUtils.printCertificate (client, room);
         
     }
+
+    public void newClue(Clue clue) {
+        Connection conn = null;
+
+        try {
+            conn = MySQLUtils.getConn();
+            ClueDAO dao = new MySQLClueDAO(conn);
+            dao.create(clue);
+//            ClientObservable clientObservable = new ClientObservable();
+//            clientObservable.notifyClients(clue);
+        } catch (DAOException | SQLException e) {
+            System.out.println(e);
+        } finally {
+            MySQLUtils.closeConn(conn);
+        }
+    }
+
+
+    public void newDecoration(Decoration decoration) {
+        Connection conn = null;
+
+        try {
+            conn = MySQLUtils.getConn();
+            DecorationDAO dao = new MySQLDecorationDAO(conn);
+            dao.create(decoration);
+//            ClientObservable clientObservable = new ClientObservable();
+//            clientObservable.notifyClients(clue);
+        } catch (DAOException | SQLException e) {
+            System.out.println(e);
+        } finally {
+            MySQLUtils.closeConn(conn);
+        }
+    }
 }
 

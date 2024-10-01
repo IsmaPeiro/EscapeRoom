@@ -67,7 +67,7 @@ public class RoomUtils {
         return null;
     }
     
-    private static RoomAbstractFactory choseThematic() {
+    protected static RoomAbstractFactory choseThematic() {
         Scanner sc = new Scanner(System.in);
         byte option = -1;
         final int MINIMUM = 1;

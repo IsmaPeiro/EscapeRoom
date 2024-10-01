@@ -8,8 +8,10 @@ import dao.mysql.MySQLClientDAO;
 import dao.mysql.MySQLClueDAO;
 import dao.mysql.MySQLDecorationDAO;
 import dao.mysql.MySQLUtils;
+import factory.RoomAbstractFactory;
 import model.clues.Clue;
 import model.decorations.Decoration;
+import model.rooms.Difficulty;
 import model.rooms.Room;
 
 import java.sql.Connection;
@@ -60,5 +62,19 @@ public class DecorationUtils {
             System.out.println("No decorations available.");
         }
         return decoration;
+    }
+
+    public static Decoration newDecoration() {
+        String name;
+        String material;
+        float value;
+
+        System.out.println("What theme has the decoration?");
+        RoomAbstractFactory factory = RoomUtils.choseThematic();
+        name = Input.readString("Name:");
+        material = Input.readString("Material:");
+        value = Input.readFloat("Value:");
+
+        return factory.createDecoration(name, material, value);
     }
 }

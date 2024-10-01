@@ -4,8 +4,10 @@ import dao.ClueDAO;
 import dao.DAOException;
 import dao.mysql.MySQLClueDAO;
 import dao.mysql.MySQLUtils;
+import factory.RoomAbstractFactory;
 import model.clues.Clue;
 import model.decorations.Decoration;
+import model.rooms.Difficulty;
 import model.rooms.Room;
 
 import java.sql.Connection;
@@ -29,12 +31,12 @@ public class ClueUtils {
         if (!clues.isEmpty()) {
             clues.forEach(System.out::println);
             while (clue == null) {
-                int decorationID = Input.readInt("Insert the id of decoration:");
+                int decorationID = Input.readInt("Insert the id of the clue:");
                 clue = clues.stream().filter(d -> d.getId() == decorationID).findFirst().orElse(null);
-                if (clue == null) System.out.println("Invalid Decoration");
+                if (clue == null) System.out.println("Invalid Clue");
             }
         } else {
-            System.out.println("Not clues available.");
+            System.out.println("No clues available.");
         }
         return clue;
     }
@@ -56,4 +58,15 @@ public class ClueUtils {
         }
         return clue;
     }
+
+    public static Clue newClue() {
+        float value;
+
+        System.out.println("What theme has the clue?");
+        RoomAbstractFactory factory = RoomUtils.choseThematic();
+        value = Input.readFloat("Value:");
+
+        return factory.createClue(value);
+    }
+
 }
