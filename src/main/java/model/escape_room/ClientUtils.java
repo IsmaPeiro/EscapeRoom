@@ -1,14 +1,7 @@
 package model.escape_room;
 
-import dao.ClientDAO;
-import dao.DAOException;
-import dao.mysql.MySQLClientDAO;
-import dao.mysql.MySQLUtils;
 import model.clients.Client;
 import model.rooms.Room;
-
-import java.sql.Connection;
-import java.sql.SQLException;
 
 public class ClientUtils {
     public static Client inputClient() {

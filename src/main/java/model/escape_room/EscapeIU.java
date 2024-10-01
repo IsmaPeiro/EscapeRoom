@@ -2,7 +2,7 @@ package model.escape_room;
 
 import java.util.Scanner;
 
-public class EscapeRoomManagement {
+public class EscapeIU {
     public void init() {
         
         Inventory inventory = new Inventory();
@@ -115,7 +115,6 @@ public class EscapeRoomManagement {
     
     private void RemoveClueRoom(RoomManagement rm, ClueManagement cm) {
         cm.removeClueRoom (rm);
-        
     }
     
     private void showInventory(Inventory escape) {

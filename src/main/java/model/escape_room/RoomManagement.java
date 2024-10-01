@@ -21,10 +21,11 @@ public class RoomManagement {
             conn = MySQLUtils.getConn();
             RoomDAO dao = new MySQLRoomDAO(conn);
             dao.create(room);
+            System.out.println("Room added.");
             ClientObservable clientObservable = new ClientObservable();
             clientObservable.notifyClients(room);
         } catch (DAOException | SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         } finally {
             MySQLUtils.closeConn(conn);
         }
@@ -33,7 +34,7 @@ public class RoomManagement {
     public void showAllRooms() {
         
         Connection conn = null;
-        float total = 0;
+        float total;
         try {
             conn = MySQLUtils.getConn();
             RoomDAO dao = new MySQLRoomDAO(conn);
@@ -42,15 +43,15 @@ public class RoomManagement {
             total = (float) rooms.stream().mapToDouble(RoomUtils::calculateValue).sum();
             System.out.println("Total value of rooms: " + total);
         } catch (DAOException | SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         } finally {
             MySQLUtils.closeConn(conn);
         }
     }
     
     public void removeRoom() {
-        int roomId=RoomUtils.selectRoom();
-        Room room = null;
+        int roomId = Input.readInt("Input the id of the room or 0 to exit:");
+        Room room;
         
         if (roomId != 0 && !Input.readYesNo("Are you sure?")) {
             room = null;
@@ -65,8 +66,9 @@ public class RoomManagement {
                 conn = MySQLUtils.getConn();
                 RoomDAO dao = new MySQLRoomDAO(conn);
                 dao.delete(room);
+                System.out.println("Room removed");
             } catch (DAOException | SQLException e) {
-                System.out.println(e);
+                e.printStackTrace();
             } finally {
                 MySQLUtils.closeConn(conn);
             }
@@ -81,7 +83,7 @@ public class RoomManagement {
             RoomDAO dao = new MySQLRoomDAO(conn);
             room = dao.readOne(id);
         } catch (DAOException | SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         } finally {
             MySQLUtils.closeConn(conn);
         }

@@ -49,7 +49,7 @@ public class MySQLUtils {
     
     public static Connection getConn () throws SQLException {
         
-        Connection conn = null;
+        Connection conn;
         String jdbc = "jdbc:mysql://localhost:3306/escape_room2";
         conn = DriverManager.getConnection(jdbc, "root", "Obokaman1976.");
         return conn;
@@ -60,7 +60,7 @@ public class MySQLUtils {
             try {
                 conn.close();
             } catch (SQLException e) {
-                System.out.println(e);
+                e.printStackTrace();
             }
         }
     }

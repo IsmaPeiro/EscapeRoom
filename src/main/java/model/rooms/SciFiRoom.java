@@ -2,9 +2,6 @@ package model.rooms;
 
 import model.clues.Clue;
 import model.decorations.Decoration;
-import model.decorations.FantasticDecoration;
-import model.decorations.SciFiDecoration;
-import model.escape_room.DecorationUtils;
 import model.escape_room.Thematic;
 
 import java.util.List;

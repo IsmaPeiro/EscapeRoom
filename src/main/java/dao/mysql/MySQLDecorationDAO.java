@@ -78,7 +78,7 @@ public class MySQLDecorationDAO implements DecorationDAO {
     public Decoration readOne(Integer id) throws DAOException {
         PreparedStatement stat = null;
         ResultSet rs = null;
-        Decoration decoration = null;
+        Decoration decoration;
         try {
             stat = conn.prepareStatement(GETONE);
             stat.setInt(1, id);

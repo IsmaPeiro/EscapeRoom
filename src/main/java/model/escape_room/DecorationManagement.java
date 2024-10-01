@@ -1,12 +1,9 @@
 package model.escape_room;
 
-import dao.ClueDAO;
 import dao.DAOException;
 import dao.DecorationDAO;
-import dao.mysql.MySQLClueDAO;
 import dao.mysql.MySQLDecorationDAO;
 import dao.mysql.MySQLUtils;
-import model.clues.Clue;
 import model.decorations.Decoration;
 import model.rooms.Room;
 
@@ -24,18 +21,18 @@ public class DecorationManagement {
             DecorationDAO dao = new MySQLDecorationDAO(conn);
             decorations = dao.readAvaiable(room.getThematic());
         } catch (DAOException | SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         } finally {
             MySQLUtils.closeConn(conn);
         }
-        decoration = DecorationUtils.readDecoration(decorations);
+        decoration = readDecoration(decorations);
         
         return decoration;
     }
     
     public void addDecorationToRoom(RoomManagement rm) {
-        Room room = null;
-        room=DecorationUtils.selectRoom(rm);
+        Room room;
+        room=selectRoom(rm);
         if (room!=null) saveToDB(room);
     }
     
@@ -51,8 +48,9 @@ public class DecorationManagement {
                 conn = MySQLUtils.getConn();
                 DecorationDAO dao = new MySQLDecorationDAO(conn);
                 dao.update(decoration);
+                System.out.println("Decoration added.");
             } catch (DAOException | SQLException e) {
-                System.out.println(e);
+                e.printStackTrace();
             } finally {
                 MySQLUtils.closeConn(conn);
             }
@@ -61,7 +59,7 @@ public class DecorationManagement {
     
     public void removeDecorationRoom(RoomManagement rm) {
         Room room;
-        room=ClueUtils.selectRoom(rm);
+        room=selectRoom(rm);
         if (room!=null) removeFromDB(room);
     }
     
@@ -69,7 +67,7 @@ public class DecorationManagement {
         Decoration decoration;
         
         List<Decoration> decorations = room.getDecorations();
-        decoration = DecorationUtils.readDecoration(decorations);
+        decoration = readDecoration(decorations);
         
         if (decoration != null) {
             Connection conn = null;
@@ -78,11 +76,46 @@ public class DecorationManagement {
                 conn = MySQLUtils.getConn();
                 DecorationDAO dao = new MySQLDecorationDAO(conn);
                 dao.setRommToNull(decoration);
+                System.out.println("Decoration removed.");
             } catch (DAOException | SQLException e) {
-                System.out.println(e);
+                e.printStackTrace();
             } finally {
                 MySQLUtils.closeConn(conn);
             }
         }
     }
+    
+    private Decoration readDecoration (List<Decoration> decorations) {
+        Decoration decoration=null;
+        
+        if (!decorations.isEmpty()) {
+            decorations.forEach(System.out::println);
+            while (decoration == null) {
+                int clueID = Input.readInt("Insert the id of decoration:");
+                decoration = decorations.stream().filter(d -> d.getId() == clueID).findFirst().orElse(null);
+                if (decoration == null) System.out.println("Invalid Decoration.");
+            }
+        } else {
+            System.out.println("No decorations available.");
+        }
+        return decoration;
+    }
+    
+    private Room selectRoom (RoomManagement rm) {
+        Room room = null;
+        int roomId;
+        boolean exit=false;
+        
+        while (!exit) {
+            roomId = Input.readInt("Input the id of the room or 0 to exit:");
+            if (roomId != 0) {
+                room = rm.searchRoom(roomId);
+                if (room!=null) exit=true;
+            } else {
+                exit=true;
+            }
+        }
+        return room;
+    }
+    
 }

@@ -59,7 +59,7 @@ public class MySQLClientDAO implements ClientDAO {
         }
     }
     
-    private Client convert(ResultSet rs) throws SQLException, DAOException {
+    private Client convert(ResultSet rs) throws SQLException {
         String name = rs.getString("name");
         String surname = rs.getString("surname");
         boolean subscribed = rs.getBoolean("subscribed");
@@ -72,7 +72,7 @@ public class MySQLClientDAO implements ClientDAO {
     public Client readOne(Integer id) throws DAOException {
         PreparedStatement stat = null;
         ResultSet rs = null;
-        Client client = null;
+        Client client;
         try {
             stat = conn.prepareStatement(GETONE);
             stat.setInt(1, id);

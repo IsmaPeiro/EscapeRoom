@@ -106,10 +106,4 @@ public class RoomUtils {
         total += (float) room.getDecorations().stream().mapToDouble(Decoration::getValue).sum();
         return total;
     }
-    
-    public static int selectRoom() {
-        int roomId = 0;
-        roomId = Input.readInt("Input the id of the room or 0 to exit:");
-        return roomId;
-    }
 }

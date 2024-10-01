@@ -61,7 +61,7 @@ public class Inventory {
             System.out.println("Total value of inventory: " + (totalDec + totalClues));
             
         } catch (DAOException | SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         } finally {
             MySQLUtils.closeConn(conn);
         }

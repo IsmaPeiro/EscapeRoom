@@ -4,7 +4,6 @@ import dao.ClueDAO;
 import dao.DAOException;
 import factory.*;
 import model.clues.Clue;
-import model.decorations.Decoration;
 import model.escape_room.Thematic;
 
 import java.sql.*;

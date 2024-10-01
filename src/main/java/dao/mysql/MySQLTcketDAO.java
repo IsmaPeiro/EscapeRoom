@@ -75,7 +75,7 @@ public class MySQLTcketDAO implements TicketDAO {
     public Ticket readOne(Integer id) throws DAOException {
         PreparedStatement stat = null;
         ResultSet rs = null;
-        Ticket ticket = null;
+        Ticket ticket;
         try {
             stat = conn.prepareStatement(GETONE);
             stat.setInt(1, id);

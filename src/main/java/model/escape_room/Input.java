@@ -109,7 +109,7 @@ public class Input {
             System.out.println(message);
             try {
                 result = SC.nextLine();
-                exit = true; //que no lea nums
+                exit = true;
             } catch (Exception e) {
                 System.err.println("Format Error");
             }
@@ -121,7 +121,7 @@ public class Input {
     public static boolean readYesNo(String message) {
         boolean exit = false;
         boolean result = true;
-        String yesNo = "";
+        String yesNo;
 
         do {
             System.out.println(message);

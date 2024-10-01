@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ClientManagement {
     public void addClient() {
-        Client client = null;
+        Client client;
         
         client = ClientUtils.inputClient();
         
@@ -23,8 +23,10 @@ public class ClientManagement {
             conn = MySQLUtils.getConn();
             ClientDAO dao = new MySQLClientDAO(conn);
             dao.create(client);
+            System.out.println("Client created.");
         } catch (DAOException | SQLException e) {
-            System.out.println(e);
+            System.err.println("Client not created.");
+            e.printStackTrace();
         } finally {
             MySQLUtils.closeConn(conn);
         }
@@ -39,14 +41,14 @@ public class ClientManagement {
             List<Client> clients = dao.readAll();
             clients.forEach(System.out::println);
         } catch (DAOException | SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         } finally {
             MySQLUtils.closeConn(conn);
         }
     }
     
     public void subscribeClient() {
-        Client client = null;
+        Client client;
         Connection conn = null;
         boolean exit=false;
         
@@ -62,7 +64,7 @@ public class ClientManagement {
                         ClientDAO dao = new MySQLClientDAO(conn);
                         dao.subscribeClient(client.getId());
                     } catch (DAOException | SQLException e) {
-                        System.out.println(e);
+                        e.printStackTrace();
                     } finally {
                         MySQLUtils.closeConn(conn);
                     }
@@ -77,7 +79,7 @@ public class ClientManagement {
     
     public void unsubscribeClient() {
         Connection conn = null;
-        Client client = null;
+        Client client;
         boolean exit=false;
         
         while (!exit) {
@@ -92,7 +94,7 @@ public class ClientManagement {
                         ClientDAO dao = new MySQLClientDAO(conn);
                         dao.unsubscribeClient(client.getId());
                     } catch (DAOException | SQLException e) {
-                        System.out.println(e);
+                        e.printStackTrace();
                     } finally {
                         MySQLUtils.closeConn(conn);
                     }
@@ -152,7 +154,7 @@ public class ClientManagement {
             ClientDAO dao = new MySQLClientDAO(conn);
             client = dao.readOne(id);
         } catch (DAOException | SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         } finally {
             MySQLUtils.closeConn(conn);
         }
