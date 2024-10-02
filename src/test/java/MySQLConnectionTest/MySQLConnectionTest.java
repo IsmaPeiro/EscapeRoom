@@ -16,7 +16,7 @@ public class MySQLConnectionTest {
     @BeforeEach
     public void setUp() throws SQLException {
         connection = DriverManager.getConnection
-                ("jdbc:mysql://localhost:3306/escape_room", "root", "Mireia_1991");
+                ("jdbc:mysql://localhost:3306/escape_room2", "root", "Obokaman1976.");
     }
 
     @Test
