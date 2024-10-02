@@ -32,7 +32,7 @@ public class SelectDB {
         final byte MAXIMUM = 17;
         
         do {
-            System.out.println("\nMENú PRINCIPAL");
+            System.out.println("\nDB MENU");
             System.out.println("1. Create new DB.");
             System.out.println("2. Select DB.");
             System.out.println("0. Exit.\n");
@@ -59,6 +59,7 @@ public class SelectDB {
         do {
             String database = Input.readString("Input the database of DB to use or 'exit':");
             if (databases.contains(database)) {
+                exit=true;
                 EscapeIU iu = new EscapeIU();
                 iu.init(database);
             } else if (database.equalsIgnoreCase("exit")) {

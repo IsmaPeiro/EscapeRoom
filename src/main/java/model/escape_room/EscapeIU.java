@@ -49,7 +49,7 @@ public class EscapeIU {
         final byte MAXIMUM = 17;
         
         do {
-            System.out.println("\nMENú PRINCIPAL");
+            System.out.println("\nMAIN MENU");
             System.out.println("1. Add Room.");
             System.out.println("2. List Rooms.");
             System.out.println("3. Add Clue to Room.");
