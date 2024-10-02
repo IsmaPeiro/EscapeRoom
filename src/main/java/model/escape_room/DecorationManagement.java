@@ -13,12 +13,18 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class DecorationManagement {
+    private String database;
+    
+    public DecorationManagement(String database) {
+        this.database = database;
+    }
+    
     private Decoration selectDecoration(Room room) {
         Decoration decoration;
         Connection conn = null;
         List<Decoration> decorations = null;
         try {
-            conn = MySQLUtils.getConn();
+            conn = MySQLUtils.getConn(database);
             DecorationDAO dao = new MySQLDecorationDAO(conn);
             decorations = dao.readAvaiable(room.getThematic());
         } catch (DAOException | SQLException e) {
@@ -46,7 +52,7 @@ public class DecorationManagement {
             Connection conn = null;
             
             try {
-                conn = MySQLUtils.getConn();
+                conn = MySQLUtils.getConn(database);
                 DecorationDAO dao = new MySQLDecorationDAO(conn);
                 dao.update(decoration);
                 System.out.println("Decoration added.");
@@ -74,7 +80,7 @@ public class DecorationManagement {
             Connection conn = null;
             
             try {
-                conn = MySQLUtils.getConn();
+                conn = MySQLUtils.getConn(database);
                 DecorationDAO dao = new MySQLDecorationDAO(conn);
                 dao.setRommToNull(decoration);
                 System.out.println("Decoration removed.");
@@ -134,7 +140,7 @@ public class DecorationManagement {
         decoration = factory.createDecoration(name, material, value);
         
         try {
-            conn = MySQLUtils.getConn();
+            conn = MySQLUtils.getConn(database);
             DecorationDAO dao = new MySQLDecorationDAO(conn);
             dao.buy(decoration);
             System.out.println("Decoration bought.");

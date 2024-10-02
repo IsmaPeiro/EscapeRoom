@@ -12,6 +12,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ClientManagement {
+    private String database;
+    
+    public ClientManagement(String database) {
+        this.database = database;
+    }
+    
     public void addClient() {
         Client client;
         
@@ -20,7 +26,7 @@ public class ClientManagement {
         Connection conn = null;
         
         try {
-            conn = MySQLUtils.getConn();
+            conn = MySQLUtils.getConn(database);
             ClientDAO dao = new MySQLClientDAO(conn);
             dao.create(client);
             System.out.println("Client created.");
@@ -36,7 +42,7 @@ public class ClientManagement {
         Connection conn = null;
         
         try {
-            conn = MySQLUtils.getConn();
+            conn = MySQLUtils.getConn(database);
             ClientDAO dao = new MySQLClientDAO(conn);
             List<Client> clients = dao.readAll();
             clients.forEach(System.out::println);
@@ -60,7 +66,7 @@ public class ClientManagement {
                     System.out.println("Client doesn't exists or is already subscribed.");
                 } else {
                     try {
-                        conn = MySQLUtils.getConn();
+                        conn = MySQLUtils.getConn(database);
                         ClientDAO dao = new MySQLClientDAO(conn);
                         dao.subscribeClient(client.getId());
                     } catch (DAOException | SQLException e) {
@@ -90,7 +96,7 @@ public class ClientManagement {
                     System.out.println("Client doesn't exists or isn't subscribed.");
                 } else {
                     try {
-                        conn = MySQLUtils.getConn();
+                        conn = MySQLUtils.getConn(database);
                         ClientDAO dao = new MySQLClientDAO(conn);
                         dao.unsubscribeClient(client.getId());
                     } catch (DAOException | SQLException e) {
@@ -150,7 +156,7 @@ public class ClientManagement {
         Connection conn = null;
         Client client = null;
         try {
-            conn = MySQLUtils.getConn();
+            conn = MySQLUtils.getConn(database);
             ClientDAO dao = new MySQLClientDAO(conn);
             client = dao.readOne(id);
         } catch (DAOException | SQLException e) {

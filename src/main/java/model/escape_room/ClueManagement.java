@@ -13,13 +13,18 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ClueManagement {
+    private String databases;
+    
+    public ClueManagement(String databases) {
+        this.databases = databases;
+    }
     
     private Clue selectClue(Room room) {
         Clue clue;
         Connection conn = null;
         List<Clue> clues = null;
         try {
-            conn = MySQLUtils.getConn();
+            conn = MySQLUtils.getConn(databases);
             ClueDAO dao = new MySQLClueDAO(conn);
             clues = dao.readAvaiable(room.getThematic());
         } catch (DAOException | SQLException e) {
@@ -47,7 +52,7 @@ public class ClueManagement {
             Connection conn = null;
             
             try {
-                conn = MySQLUtils.getConn();
+                conn = MySQLUtils.getConn(databases);
                 ClueDAO dao = new MySQLClueDAO(conn);
                 dao.update(clue);
                 System.out.println("Clue added.");
@@ -75,7 +80,7 @@ public class ClueManagement {
             Connection conn = null;
             
             try {
-                conn = MySQLUtils.getConn();
+                conn = MySQLUtils.getConn(databases);
                 ClueDAO dao = new MySQLClueDAO(conn);
                 dao.setRommToNull(clue);
                 System.out.println("Clue removed.");
@@ -133,7 +138,7 @@ public class ClueManagement {
         clue = factory.createClue(value);
         
         try {
-            conn = MySQLUtils.getConn();
+            conn = MySQLUtils.getConn(databases);
             ClueDAO dao = new MySQLClueDAO(conn);
             dao.buy(clue);
             System.out.println("Clue bought.");

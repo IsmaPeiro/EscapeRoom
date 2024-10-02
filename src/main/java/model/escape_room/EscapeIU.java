@@ -3,14 +3,14 @@ package model.escape_room;
 import java.util.Scanner;
 
 public class EscapeIU {
-    public void init() {
+    public void init(String database) {
         
-        Inventory inventory = new Inventory();
-        RoomManagement rm=new RoomManagement();
-        ClueManagement cm=new ClueManagement();
-        DecorationManagement dm=new DecorationManagement();
-        ClientManagement clm=new ClientManagement();
-        TicketManagement tm = new TicketManagement();
+        Inventory inventory = new Inventory(database);
+        RoomManagement rm=new RoomManagement(database);
+        ClueManagement cm=new ClueManagement(database);
+        DecorationManagement dm=new DecorationManagement(database);
+        ClientManagement clm=new ClientManagement(database);
+        TicketManagement tm = new TicketManagement(database);
         
         boolean exit = false;
         

@@ -11,12 +11,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class Inventory {
+    private String database;
+    
+    public Inventory(String database) {
+        this.database = database;
+    }
     
     public void showInventory() {
         Connection conn = null;
         
         try {
-            conn = MySQLUtils.getConn();
+            conn = MySQLUtils.getConn(database);
             RoomDAO rdao = new MySQLRoomDAO(conn);
             DecorationDAO ddao = new MySQLDecorationDAO(conn);
             ClueDAO cdao = new MySQLClueDAO(conn);

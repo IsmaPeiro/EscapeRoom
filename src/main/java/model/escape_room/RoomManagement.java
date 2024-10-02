@@ -12,18 +12,23 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class RoomManagement {
+    private String database;
+    
+    public RoomManagement(String database) {
+        this.database = database;
+    }
     
     public void addRoom() {
         Room room = RoomUtils.inputRoom();
         Connection conn = null;
         
         try {
-            conn = MySQLUtils.getConn();
+            conn = MySQLUtils.getConn(database);
             RoomDAO dao = new MySQLRoomDAO(conn);
             dao.create(room);
             System.out.println("Room added.");
             ClientObservable clientObservable = new ClientObservable();
-            clientObservable.notifyClients(room);
+            clientObservable.notifyClients(room, database);
         } catch (DAOException | SQLException e) {
             e.printStackTrace();
         } finally {
@@ -36,7 +41,7 @@ public class RoomManagement {
         Connection conn = null;
         float total;
         try {
-            conn = MySQLUtils.getConn();
+            conn = MySQLUtils.getConn(database);
             RoomDAO dao = new MySQLRoomDAO(conn);
             List<Room> rooms = dao.readAll();
             rooms.forEach(r -> System.out.println(r + "Value of Room: " + RoomUtils.calculateValue(r) + "\n"));
@@ -63,7 +68,7 @@ public class RoomManagement {
             Connection conn = null;
             
             try {
-                conn = MySQLUtils.getConn();
+                conn = MySQLUtils.getConn(database);
                 RoomDAO dao = new MySQLRoomDAO(conn);
                 dao.delete(room);
                 System.out.println("Room removed");
@@ -79,7 +84,7 @@ public class RoomManagement {
         Connection conn = null;
         Room room = null;
         try {
-            conn = MySQLUtils.getConn();
+            conn = MySQLUtils.getConn(database);
             RoomDAO dao = new MySQLRoomDAO(conn);
             room = dao.readOne(id);
         } catch (DAOException | SQLException e) {

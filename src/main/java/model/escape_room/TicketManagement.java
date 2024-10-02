@@ -13,13 +13,19 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class TicketManagement {
+    private String database;
+    
+    public TicketManagement(String database) {
+        this.database = database;
+    }
+    
     public void createTicket(RoomManagement rm, ClientManagement clm) {
         Ticket ticket=inputTicket(rm, clm);
         
         Connection conn = null;
         
         try {
-            conn = MySQLUtils.getConn();
+            conn = MySQLUtils.getConn(database);
             TicketDAO dao = new MySQLTcketDAO(conn);
             dao.create(ticket);
             System.out.println(ticket);
@@ -33,7 +39,7 @@ public class TicketManagement {
     public void listTickets() {
         Connection conn = null;
         try {
-            conn = MySQLUtils.getConn();
+            conn = MySQLUtils.getConn(database);
             TicketDAO dao = new MySQLTcketDAO(conn);
             List<Ticket> tickets = dao.readAll();
             tickets.forEach(System.out::println);

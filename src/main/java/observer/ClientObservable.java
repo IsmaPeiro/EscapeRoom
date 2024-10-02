@@ -14,12 +14,12 @@ import java.util.List;
 public class ClientObservable {
 
 
-    public void notifyClients(Room room) {
+    public void notifyClients(Room room, String database) {
         RoomObserver roomUpdate = new RoomObserver();
         Connection conn = null;
 
         try {
-            conn = MySQLUtils.getConn();
+            conn = MySQLUtils.getConn(database);
             ClientDAO dao = new MySQLClientDAO(conn);
 
             List<Client> subscribedClients = dao.getSubscribedClients();

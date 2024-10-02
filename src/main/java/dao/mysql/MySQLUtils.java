@@ -47,10 +47,10 @@ public class MySQLUtils {
         return null;
     }
     
-    public static Connection getConn () throws SQLException {
+    public static Connection getConn (String database) throws SQLException {
         
         Connection conn;
-        String jdbc = "jdbc:mysql://localhost:3306/escape_room2";
+        String jdbc = "jdbc:mysql://localhost:3306/"+database;
         conn = DriverManager.getConnection(jdbc, "root", "Obokaman1976.");
         return conn;
     }
