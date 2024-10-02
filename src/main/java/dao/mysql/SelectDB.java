@@ -3,7 +3,6 @@ package dao.mysql;
 import model.escape_room.*;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
