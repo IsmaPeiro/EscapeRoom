@@ -32,9 +32,9 @@ public class SelectDB {
         final byte MAXIMUM = 17;
         
         do {
-            System.out.println("\nDB MENU");
-            System.out.println("1. Create new DB.");
-            System.out.println("2. Select DB.");
+            System.out.println("\nESCAPES MENU");
+            System.out.println("1. Create new escape room.");
+            System.out.println("2. Select escape room.");
             System.out.println("0. Exit.\n");
             if (sc.hasNextByte()) option = sc.nextByte();
             sc.nextLine();

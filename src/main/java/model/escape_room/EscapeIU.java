@@ -6,16 +6,16 @@ public class EscapeIU {
     public void init(String database) {
         
         Inventory inventory = new Inventory(database);
-        RoomManagement rm=new RoomManagement(database);
-        ClueManagement cm=new ClueManagement(database);
-        DecorationManagement dm=new DecorationManagement(database);
-        ClientManagement clm=new ClientManagement(database);
+        RoomManagement rm = new RoomManagement(database);
+        ClueManagement cm = new ClueManagement(database);
+        DecorationManagement dm = new DecorationManagement(database);
+        ClientManagement clm = new ClientManagement(database);
         TicketManagement tm = new TicketManagement(database);
         
         boolean exit = false;
         
         do {
-            switch (menu()) {
+            switch (menu(database)) {
                 case 1 -> addRoom(rm);
                 case 2 -> listRooms(rm);
                 case 3 -> addClue(rm, cm);
@@ -33,23 +33,20 @@ public class EscapeIU {
                 case 15 -> printCertificate(rm, clm);
                 case 16 -> buyClue(cm);
                 case 17 -> buyDecoration(dm);
-                case 0 -> {
-                    System.out.println("thanks.");
-                    exit = true;
-                }
+                case 0 -> exit = true;
             }
         } while (!exit);
     }
     
     
-    public byte menu() {
+    public byte menu(String database) {
         Scanner sc = new Scanner(System.in);
         byte option = -1;
         final byte MINIMUM = 0;
         final byte MAXIMUM = 17;
         
         do {
-            System.out.println("\nMAIN MENU");
+            System.out.println("\n" + database + " MAIN MENU");
             System.out.println("1. Add Room.");
             System.out.println("2. List Rooms.");
             System.out.println("3. Add Clue to Room.");
@@ -110,22 +107,22 @@ public class EscapeIU {
     }
     
     private void RemoveRoom(RoomManagement rm) {
-        rm.removeRoom ();
+        rm.removeRoom();
     }
     
     private void RemoveDecorationRoom(RoomManagement rm, DecorationManagement dm) {
-        dm.removeDecorationRoom (rm);
+        dm.removeDecorationRoom(rm);
     }
     
     private void RemoveClueRoom(RoomManagement rm, ClueManagement cm) {
-        cm.removeClueRoom (rm);
+        cm.removeClueRoom(rm);
     }
     
     private void showInventory(Inventory escape) {
         escape.showInventory();
     }
     
-    private void unsubscribeClientNewsletter(ClientManagement clm){
+    private void unsubscribeClientNewsletter(ClientManagement clm) {
         clm.unsubscribeClient();
     }
     
