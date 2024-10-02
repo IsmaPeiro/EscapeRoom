@@ -6,9 +6,9 @@ public abstract class Clue {
     protected int id;
     protected Thematic thematic;
     protected float value;
+    protected Integer idRoom;
     
-    public Clue(int id, float value) {
-        this.id = id;
+    public Clue(float value) {
         this.value = value;
     }
     
@@ -36,11 +36,16 @@ public abstract class Clue {
         this.value = value;
     }
     
+    public Integer getIdRoom() {
+        return idRoom;
+    }
+    
+    public void setIdRoom(Integer idRoom) {
+        this.idRoom = idRoom;
+    }
+    
     @Override
     public String toString() {
-        return "Clue{" +
-                "id=" + id +
-                ", value=" + value +
-                '}';
+        return "Clue id: " + id + ", value: " + value;
     }
 }

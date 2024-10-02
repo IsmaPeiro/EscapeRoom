@@ -4,14 +4,24 @@ import model.escape_room.Thematic;
 
 public abstract class Decoration {
     protected int id;
+    protected String name;
     protected Thematic thematic;
     protected String material;
     protected float value;
+    protected Integer idRoom;
     
-    public Decoration(int id, String material, float value) {
-        this.id = id;
+    public Decoration(String name, String material, float value) {
+        this.name = name;
         this.material = material;
         this.value=value;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
     }
     
     public Thematic getThematic() {
@@ -46,11 +56,16 @@ public abstract class Decoration {
         this.value = value;
     }
     
+    public Integer getIdRoom() {
+        return idRoom;
+    }
+    
+    public void setIdRoom(Integer idRoom) {
+        this.idRoom = idRoom;
+    }
+    
     @Override
     public String toString() {
-        return "Decoration{" +
-                "id=" + id +
-                ", material='" + material + '\'' +
-                '}';
+        return "Decoration id: " + id + ", name: " + name + ", material: " + material + ", value: " + value;
     }
 }

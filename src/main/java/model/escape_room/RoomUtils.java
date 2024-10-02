@@ -12,26 +12,19 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class RoomUtils {
-    public static Room addRoom() {
-        int id;
+    public static Room inputRoom() {
         String name;
         Difficulty difficulty;
-        List<Clue> clues=null;
-        List<Decoration> decorations=null;
-        
-        Scanner sc = new Scanner(System.in);
+        List<Clue> clues = null;
+        List<Decoration> decorations = null;
         
         System.out.println("What thematic have the Room?");
         RoomAbstractFactory factory = choseThematic();
-        System.out.println("Id:");
-        id=sc.nextInt();
-        sc.nextLine();
-        System.out.println("Name:");
-        name = sc.nextLine();
+        name = Input.readString("Name:");
         System.out.println("Difficulty:");
-        difficulty=choseDifficulty();
+        difficulty = choseDifficulty();
         
-        return factory.createRoom(id, name, difficulty, clues, decorations);
+        return factory.createRoom(name, difficulty, clues, decorations);
     }
     
     private static Difficulty choseDifficulty() {
@@ -68,7 +61,7 @@ public class RoomUtils {
         return null;
     }
     
-    private static RoomAbstractFactory choseThematic() {
+    protected static RoomAbstractFactory choseThematic() {
         Scanner sc = new Scanner(System.in);
         byte option = -1;
         final int MINIMUM = 1;
@@ -105,5 +98,12 @@ public class RoomUtils {
             }
         }
         return null;
+    }
+    
+    public static float calculateValue(Room room) {
+        float total = 0;
+        total += (float) room.getClues().stream().mapToDouble(Clue::getValue).sum();
+        total += (float) room.getDecorations().stream().mapToDouble(Decoration::getValue).sum();
+        return total;
     }
 }

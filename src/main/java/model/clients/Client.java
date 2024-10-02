@@ -6,8 +6,7 @@ public class Client {
     private String surname;
     private boolean subscribed;
     
-    public Client(int id, String name, String surname, boolean subscribed) {
-        this.id = id;
+    public Client(String name, String surname, boolean subscribed) {
         this.name = name;
         this.surname = surname;
         this.subscribed = subscribed;
@@ -47,11 +46,9 @@ public class Client {
     
     @Override
     public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", subscribed=" + subscribed +
-                '}';
+        return "Client id: " + id + "\n" +
+                "name: " + name + "\n" +
+                "surname: " + surname + "\n" +
+                "subscribed: " + subscribed + "\n";
     }
 }

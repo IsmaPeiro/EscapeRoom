@@ -7,13 +7,14 @@ import model.escape_room.Thematic;
 import java.util.List;
 
 public class SciFiRoom extends Room {
-    public SciFiRoom(int id, String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
-        super(id, name, difficulty, clues, decorations);
+    public SciFiRoom(String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
+        super(name, difficulty, clues, decorations);
         thematic=Thematic.SCIFI;
     }
-    
+
+
     @Override
     public String toString() {
-        return "SciFiRoom{} " + super.toString();
+        return "SciFi Room: " + "\n" + super.toString();
     }
 }

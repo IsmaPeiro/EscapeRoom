@@ -1,14 +1,17 @@
 package model.clients;
 
+import model.rooms.Room;
+
 public class Ticket {
     private int id;
     private Client client;
     private float value;
+    private Room room;
     
-    public Ticket(int id, Client client, float value) {
-        this.id = id;
+    public Ticket(Client client, float value, Room room) {
         this.client = client;
         this.value = value;
+        this.room = room;
     }
     
     public int getId() {
@@ -35,12 +38,31 @@ public class Ticket {
         this.value = value;
     }
     
+    public Room getRoom() {
+        return room;
+    }
+    
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+    
     @Override
     public String toString() {
-        return "Ticket{" +
-                "id=" + id +
-                ", client=" + client +
-                ", value=" + value +
-                '}';
+        String roomDescription="";
+        if (room!=null) {
+            roomDescription=
+                    "Room id: " + room.getId() + "\n" +
+                    "Room Thematic: " + room.getThematic() + "\n" +
+                    "Room name: " + room.getName() + "\n" +
+                    "Room Difficulty: " + room.getDifficulty() + "\n";
+        } else {
+            roomDescription="Room was removed.\n";
+        }
+        
+        return "Ticket id: " + id + "\n" +
+                client +
+                "value: " + value + "\n" +
+                roomDescription;
+                
     }
 }

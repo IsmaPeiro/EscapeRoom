@@ -3,13 +3,13 @@ package model.decorations;
 import model.escape_room.Thematic;
 
 public class MedievalDecoration extends Decoration {
-    public MedievalDecoration(int id, String material, float value) {
-        super(id, material, value);
+    public MedievalDecoration(String name, String material, float value) {
+        super(name, material, value);
         thematic=Thematic.MEDIEVAL;
     }
     
     @Override
     public String toString() {
-        return "MedievalDecoration{} " + super.toString();
+        return "Medieval Decoration: " + super.toString();
     }
 }

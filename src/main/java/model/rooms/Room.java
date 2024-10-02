@@ -14,8 +14,7 @@ public abstract class Room {
     protected List<Clue> clues;
     protected List<Decoration> decorations;
     
-    public Room(int id, String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
-        this.id = id;
+    public Room(String name, Difficulty difficulty, List<Clue> clues, List<Decoration> decorations) {
         this.name = name;
         this.difficulty = difficulty;
         this.clues = clues;
@@ -69,20 +68,25 @@ public abstract class Room {
     public void setDecorations(List<Decoration> decorations) {
         this.decorations = decorations;
     }
-    
-    public void addClue (Clue clue) {
-        clues.add(clue);
-    }
+
     
     @Override
     public String toString() {
-        return "Room{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", difficulty=" + difficulty +
-                ", clues=" + clues +
-                ", decorations=" + decorations +
-                '}';
+        String clueList = "", decorationList="";
+        for (Clue clue : clues) {
+            clueList+=clue.toString()+"\n";
+        }
+        
+        for (Decoration decoration : decorations) {
+            decorationList+=decoration.toString()+"\n";
+        }
+        
+        return "Room id: " + id + "\n" +
+                "name: " + name + "\n" +
+                "difficulty: " + difficulty + "\n" +
+                "clues: " + "\n" + clueList +
+                "decorations: " + "\n" + decorationList;
+        
     }
 }
 
