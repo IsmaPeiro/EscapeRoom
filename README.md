@@ -1,6 +1,6 @@
 ESCAPE ROOM MANAGER
 
-With this application we aim to facilitate the managment of a virtual Escape Room
+With this application we aim to facilitate the managment of Escape Room
     with persistence management in MySQL.
 
 It includes the functionalities:
@@ -13,6 +13,6 @@ It includes the functionalities:
 - Print certificates for the client with the points earned by solving the room.
 - Buy (Create) new Clues and Decorations for the inventory.
 
-The code of this application implements design patterns such as Abstract Factory, Singleton or Observer.
+The code of this application implements design patterns such as Abstract Factory, Singleton and Observer.
 
 Made by Ismael Peiro, Raul Fabra and Ramon Puertas.
