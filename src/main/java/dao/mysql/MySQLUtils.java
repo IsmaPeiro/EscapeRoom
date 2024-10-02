@@ -50,8 +50,8 @@ public class MySQLUtils {
     public static Connection getConn () throws SQLException {
         
         Connection conn;
-        String jdbc = "jdbc:mysql://localhost:3306/escape_room2";
-        conn = DriverManager.getConnection(jdbc, "root", "Obokaman1976.");
+        String jdbc = "jdbc:mysql://localhost:3306/escape_room";
+        conn = DriverManager.getConnection(jdbc, "root", "Mireia_1991");
         return conn;
     }
     
