@@ -12,3 +12,7 @@ It includes the functionalities:
 - Subscribe or unsubscribe clients to be notified of the creation of new rooms.
 - Print certificates for the client with the points earned by solving the room.
 - Buy (Create) new Clues and Decorations for the inventory.
+
+The code of this application implements design patterns such as Abstract Factory, Singleton or Observer.
+
+Made by Ismael Peiro, Raul Fabra and Ramon Puertas.
